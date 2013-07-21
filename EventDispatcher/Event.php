@@ -6,7 +6,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\Symfony2Bundle\EventDispatcher;
+namespace Vespolina\CommerceBundle\EventDispatcher;
 
 use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
 use Vespolina\EventDispatcher\EventInterface;

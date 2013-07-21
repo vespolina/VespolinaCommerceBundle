@@ -23,5 +23,6 @@
             <argument type="service" id="vespolina_commerce.order_manager"/>
         </service>
         <service id="vespolina.cart_provider" alias="vespolina_commerce.cart_provider"/>
+        <service id="vespolina.order_manipulator" alias="vespolina_commerce.order_manipulator"/>
     </services>
 </container>
