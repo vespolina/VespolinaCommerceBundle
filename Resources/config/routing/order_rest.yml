@@ -1,0 +1,7 @@
+v_cart_rest:
+    type:     rest
+    resource: v_commerce.cart_rest_controller
+v_commerce_rest:
+    type:     rest
+    resource: v_commerce.order_rest_controller
+

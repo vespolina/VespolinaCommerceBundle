@@ -1,0 +1,8 @@
+{% if configuredOptionGroups %}
+
+<select id="configured-option-groups">
+{% for id, optionGroup in configuredOptionGroups %}
+    <option value="{{ id }}">{{ optionGroup.display }}</option>
+{% endfor %}
+</select>
+{% endif %}

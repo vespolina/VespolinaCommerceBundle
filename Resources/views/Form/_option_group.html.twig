@@ -1,0 +1,8 @@
+{% block content %}
+<form action="{{ formAction }}" {{ form_enctype(form) }} method="POST" class="vespolina_form">
+     {{ form_rest(form) }}
+    <a href="#" class="form-add-field" id="add-option-choice-link" />Add Option Choice</a><br />
+        <button type="submit">Save changes</button>
+</form>
+
+{% endblock %}

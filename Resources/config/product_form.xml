@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="vespolina.product.form.name">vespolina_product</parameter>
+        <parameter key="vespolina.product.form.handler.class">Vespolina\CommerceBundle\Form\ProductFormHandler</parameter>
+        <parameter key="vespolina.product.form.type.class">Vespolina\CommerceBundle\Form\Type\ProductFormType</parameter>
+        <parameter key="vespolina.product.form.validation_groups">Product</parameter>
+        <parameter key="vespolina.product.form.model.check_product.class">Application\Vespolina\CommerceBundle\Document\Product</parameter>
+        <parameter key="vespolina.product.template_engine">twig</parameter>
+
+        <!-- Identifiers -->
+        <parameter key="vespolina.product.product_manager.primary_identifier">id</parameter>
+        <parameter type="collection" key="vespolina.product.product_manager.identifiers">
+            <parameter key="id">Vespolina\CommerceBundle\Model\Identifier\IdIdentifier</parameter>
+        </parameter>
+
+    </parameters>
+    <services>
+        <service id="vespolina.product.form" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
+            <argument>%vespolina.product.form.name%</argument>
+            <argument>%vespolina.product.form.type.class%</argument>
+            <argument />
+            <argument type="collection">
+                <argument key="data_class">%vespolina.product.form.model.check_product.class%</argument>
+                <argument key="validation_groups">%vespolina.product.form.validation_groups%</argument>
+            </argument>
+        </service>
+
+        <service id="vespolina.product.form.type" class="%vespolina.product.form.type.class%">
+            <tag name="form.type" alias="vespolina_product"/>
+        </service>
+
+        <service id="vespolina.product.form.f.handler" class="Application\Vespolina\CommerceBundle\Form\Handler\ProductFormHandler" scope="request">
+            <argument type="service" id="vespolina.product.form" />
+            <argument type="service" id="request" />
+            <argument type="service" id="vespolina.product_manager" />
+        </service>
+
+        <service id="vespolina.product.form.handler" class="%vespolina.product.form.handler.class%" scope="request">
+            <argument type="service" id="vespolina.product.form" />
+            <argument type="service" id="request" />
+            <argument type="service" id="vespolina.product_manager" />
+        </service>
+
+    </services>
+</container>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="vespolina_commerce.cart_provider.class">Vespolina\CommerceBundle\Provider\CartProvider</parameter>
+        <parameter key="vespolina_commerce.order_manipulator.class">Vespolina\Order\Util\OrderManipulator</parameter>
+        <parameter key="vespolina_commerce.order_handler.default.class">Vespolina\Order\Handler\DefaultOrderHandler</parameter>
+        <parameter key="vespolina_commerce.template.engine">twig</parameter>
+    </parameters>
+
+    <services>
+        <service id="vespolina_commerce.cart_provider" class="%vespolina_commerce.cart_provider.class%">
+            <argument type="service" id="vespolina_commerce.order_manager"/>
+            <argument type="service" id="session"/>
+        </service>
+        <service id="vespolina_commerce.order_handler.default" class="%vespolina_commerce.order_handler.default.class%">
+            <tag name="vespolina_commerce.order_handler" />
+        </service>
+        <service id="vespolina_commerce.order_manipulator" class="%vespolina_commerce.order_manipulator.class%">
+            <argument type="service" id="vespolina_commerce.order_manager"/>
+        </service>
+        <service id="vespolina.cart_provider" alias="vespolina_commerce.cart_provider"/>
+    </services>
+</container>

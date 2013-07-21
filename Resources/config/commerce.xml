@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="vespolina_commerce.asset_manager.class">Vespolina\CommerceBundle\Twig\Extension\AssetManager</parameter>
+        <parameter key="vespolina_commerce.asset.class">Vespolina\CommerceBundle\Document\Asset</parameter>
+        <parameter key="vespolina_commerce.molino.class">Molino\Doctrine\ODM\MongoDB\Molino</parameter>
+	    <parameter key="vespolina_commerce.event_dispatcher.class">Vespolina\Symfony2Bundle\EventDispatcher\EventDispatcher</parameter>
+    </parameters>
+
+    <services>
+        <service id="vespolina_commerce.event_dispatcher" class="%vespolina_commerce.event_dispatcher.class%">
+            <argument type="service" id="event_dispatcher" />
+        </service>
+        <service id="vespolina_commerce.molino" class="%vespolina_commerce.molino.class%">
+            <argument type="service" id="doctrine_mongodb.odm.default_document_manager" />
+        </service>
+        <service id="vespolina_commerce.asset_manager" class="%vespolina_commerce.asset_manager.class%">
+            <argument type="service" id="doctrine_mongodb.odm.default_document_manager" />
+            <argument>%vespolina_commerce.asset.class%</argument>
+        </service>
+        <service id="vespolina.event_dispatcher" alias="vespolina_commerce.event_dispatcher"/>
+        <service id="vespolina.molino" alias="vespolina_commerce.molino"/>
+    </services>
+</container>

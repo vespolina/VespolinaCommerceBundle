@@ -1,0 +1,13 @@
+{% extends "VespolinaCommerceBundle::layout.html.twig" %}
+
+{% block content %}
+<a href="{{ path('vespolina_option_group_new') }}">New Option Group</a>
+
+<div class="vespolina_option_group_list">
+    <ul>
+    {% for optionGroup in optionGroups %}
+        <li><a href="{{ path('vespolina_option_group_show', {'id': optionGroup.id} ) }}">{{ optionGroup.name }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

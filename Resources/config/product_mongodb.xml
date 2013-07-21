@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="vespolina_commerce.admin_manager.class">Vespolina\CommerceBundle\Document\ProductAdminManager</parameter>
+        <parameter key="vespolina_commerce.entity.attribute.class">Vespolina\Entity\Product\Attribute</parameter>
+        <parameter key="vespolina_commerce.entity.product.class">Vespolina\Entity\Product\Product</parameter>
+        <parameter key="vespolina_commerce.entity.option.class">Vespolina\Entity\Product\Option</parameter>
+        <parameter key="vespolina_commerce.entity.merchandise.class">Vespolina\Entity\Product\Merchandise</parameter>
+        <parameter key="vespolina_commerce.entity.configured_option_group.class">Application\Vespolina\CommerceBundle\Document\ConfiguredOptionGroup</parameter>
+        <parameter key="vespolina_commerce.entity.product_identifier_set.class">Vespolina\CommerceBundle\Document\ProductIdentifierSet</parameter>
+        <parameter key="vespolina_commerce.product_manager.class">Vespolina\Product\Manager\ProductManager</parameter>
+    </parameters>
+
+    <services>
+        <service id="vespolina_commerce.product_gateway" class="Vespolina\Product\Gateway\ProductDoctrineMongoDbGateway">
+            <argument type="service" id="doctrine_mongodb.odm.default_document_manager" />
+            <argument>%vespolina_commerce.entity.product.class%</argument>
+        </service>
+
+        <service id="vespolina_commerce.product_manager" class="%vespolina_commerce.product_manager.class%">
+            <argument type="service" id="vespolina_commerce.product_gateway" />
+            <argument type="collection">
+                <argument key="attributeClass">%vespolina_commerce.entity.attribute.class%</argument>
+                <argument key="merchandiseClass">%vespolina_commerce.entity.merchandise.class%</argument>
+                <argument key="optionClass">%vespolina_commerce.entity.option.class%</argument>
+                <argument key="productClass">%vespolina_commerce.entity.product.class%</argument>
+            </argument>
+        </service>
+
+
+
+        <service id="vespolina.product_manager" alias="vespolina_commerce.product_manager" />
+        <!--
+                <service id="vespolina.product.admin_manager" class="%vespolina.product.admin_manager.class%">
+                    <argument type="service" id="doctrine_mongodb.odm.default_document_manager" />
+                    <argument>%vespolina.product.entity.configured_option_group.class%</argument>
+                </service>
+        -->
+    </services>
+</container>

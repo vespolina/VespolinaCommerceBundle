@@ -1,0 +1,13 @@
+<div class="vespolina_product_product_show">
+    <p>Product: {{ product.name }}</p>
+    <p>Description: {{ product.description }}</p>
+    <p>Option Groups: {% for optionGroup in product.options %}
+        {{ optionGroup.name }}<br />
+        {% endfor %}
+    </p>
+    <p>Attributes: {% for attribute in product.attributes %}
+         {{ attribute.type }} - {{ attribute.name }}<br />
+        {% endfor %}
+    </p>
+</div>
+<a href="{{ path('vespolina_product_list') }}">Back to Products</a>

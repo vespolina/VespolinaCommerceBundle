@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="vespolina.attribute.form.name">vespolina_product_attribute</parameter>
+        <parameter key="vespolina.attribute.form.type.class">Vespolina\CommerceBundle\Form\Type\AttributeFormType</parameter>
+        <parameter key="vespolina.attribute.form.model.data_class.class">Vespolina\CommerceBundle\Document\Attribute</parameter>
+    </parameters>
+
+    <services>
+        <service id="vespolina.attribute.form.type" class="%vespolina.attribute.form.type.class%">
+            <tag name="form.type" alias="vespolina_attribute" />
+            <argument key="data_class">%vespolina.attribute.form.model.data_class.class%</argument>
+        </service>
+    </services>
+</container>

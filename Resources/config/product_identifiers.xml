@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="vespolina.identifier_set.form.name">vespolina_product_identifier_set</parameter>
+        <parameter key="vespolina.identifier_set.form.type.class">Vespolina\CommerceBundle\Form\Type\IdentifierSetFormType</parameter>
+        <parameter key="vespolina.identifier_set.form.model.data_class.class">Vespolina\CommerceBundle\Document\ProductIdentifierSet</parameter>
+    </parameters>
+    <services>
+        <service id="vespolina.identifier_set.form.type" class="%vespolina.identifier_set.form.type.class%">
+            <tag name="form.type" alias="vespolina_identifier_set" />
+            <argument key="data_class">%vespolina.identifier_set.form.model.data_class.class%</argument>
+        </service>
+    </services>
+</container>

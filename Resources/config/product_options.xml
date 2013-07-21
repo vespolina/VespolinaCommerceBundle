@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="vespolina.configured_option_group.form.name">vespolina_product_configured_option_group</parameter>
+        <parameter key="vespolina.configured_option_group.form.type.class">Vespolina\CommerceBundle\Form\Type\ConfiguredOptionGroupFormType</parameter>
+        <parameter key="vespolina.configured_option_group.form.model.data_class.class">Application\Vespolina\CommerceBundle\Document\ConfiguredOptionGroup</parameter>
+        <parameter key="vespolina.configured_option_group.form.handler.class">Vespolina\CommerceBundle\Form\Handler\OptionGroupFormHandler</parameter>
+
+        <parameter key="vespolina.option_group.form.name">vespolina_product_option_group</parameter>
+        <parameter key="vespolina.option_group.form.type.class">Vespolina\CommerceBundle\Form\Type\OptionGroupFormType</parameter>
+        <parameter key="vespolina.option_group.form.model.data_class.class">Application\Vespolina\CommerceBundle\Document\OptionGroup</parameter>
+        <parameter key="vespolina.option_group.form.handler.class">Vespolina\CommerceBundle\Form\Handler\OptionGroupFormHandler</parameter>
+
+        <parameter key="vespolina.option.form.name">vespolina_product_option</parameter>
+        <parameter key="vespolina.option.form.type.class">Vespolina\CommerceBundle\Form\Type\OptionFormType</parameter>
+        <parameter key="vespolina.option.form.model.data_class.class">Vespolina\CommerceBundle\Document\Option</parameter>
+
+        <parameter key="vespolina.configured_option.form.name">vespolina_product_option</parameter>
+        <parameter key="vespolina.configured_option.form.type.class">Vespolina\CommerceBundle\Form\Type\OptionFormType</parameter>
+        <parameter key="vespolina.configured_option.form.model.data_class.class">Vespolina\CommerceBundle\Document\Option</parameter>
+    </parameters>
+    <services>
+        <service id="vespolina.configured_option_group.form.type" class="%vespolina.configured_option_group.form.type.class%">
+            <tag name="form.type" alias="vespolina_product_configured_option_group" />
+            <argument key="data_class">%vespolina.configured_option_group.form.model.data_class.class%</argument>
+        </service>
+        <service id="vespolina.option_group.form.type" class="%vespolina.option_group.form.type.class%">
+            <tag name="form.type" alias="vespolina_option_group" />
+            <argument key="data_class">%vespolina.option_group.form.model.data_class.class%</argument>
+        </service>
+        <service id="vespolina.option.form.type" class="%vespolina.option.form.type.class%">
+            <tag name="form.type" alias="vespolina_option" />
+            <argument key="data_class">%vespolina.option.form.model.data_class.class%</argument>
+            <argument key="name">%vespolina.option.form.name%</argument>
+        </service>
+        <service id="vespolina.configured_option_group.form" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
+            <argument type="service" id="vespolina.configured_option_group.form.type" />
+            <argument>%vespolina.configured_option_group.form.name%</argument>
+            <argument />
+            <argument type="collection">
+                <argument key="validation_groups">%vespolina.product.form.validation_groups%</argument>
+            </argument>
+        </service>
+        <service id="vespolina.configured_option.form.type" class="%vespolina.configured_option.form.type.class%">
+            <tag name="form.type" alias="vespolina_configured_option" />
+            <argument key="data_class">%vespolina.configured_option.form.model.data_class.class%</argument>
+            <argument key="name">%vespolina.configured_option.form.name%</argument>
+        </service>
+<!--
+        <service id="vespolina.option_group.form.handler" class="%vespolina.option_group.form.handler.class%" scope="request">
+            <argument type="service" id="vespolina.configured_option_group.form" />
+            <argument type="service" id="request" />
+            <argument type="service" id="vespolina.product.admin_manager" />
+        </service>
+-->
+    </services>
+</container>
