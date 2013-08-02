@@ -6,12 +6,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\Symfony2Bundle\EventDispatcher;
+namespace Vespolina\CommerceBundle\EventDispatcher;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as SymfonyEventDispatcherInterface;
 use Vespolina\EventDispatcher\EventDispatcherInterface;
 use Vespolina\EventDispatcher\EventInterface;
-use Vespolina\Symfony2Bundle\EventDispatcher\Event;
+use Vespolina\CommerceBundle\EventDispatcher\Event;
 
 class EventDispatcher implements EventDispatcherInterface
 {

@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\ValidatorException;
-use Vespolina\PartnerBundle\Form\QuickCustomerType;
+use Vespolina\CommerceBundle\Form\Type\Partner\QuickCustomerType;
 use Vespolina\CommerceBundle\Form\Type\Process\CustomerQuickCreateFormType;
 use Vespolina\CommerceBundle\Controller\Process\AbstractProcessStepController;
 
@@ -26,7 +26,7 @@ class IdentifyCustomerController extends AbstractProcessStepController
         if ($addresses)
             $customerQuickCreateForm->get('address')->setData($addresses->get(0));
 
-        $partnerManager = $this->container->get('vespolina_partner.partner_manager');
+        $partnerManager = $this->container->get('vespolina_commerce.partner_manager');
         $processManager = $this->container->get('vespolina.process_manager');
         $request = $this->container->get('request');
 
@@ -141,7 +141,7 @@ class IdentifyCustomerController extends AbstractProcessStepController
             $partnerManager = $this->container->get('vespolina.partner_manager');
             $customer = $partnerManager->createPartner();
         }
-        $customerQuickCreateForm = $this->container->get('form.factory')->create($this->container->get('vespolina_partner.partner.quick_customer_type'), $customer);
+        $customerQuickCreateForm = $this->container->get('form.factory')->create($this->container->get('vespolina_commerce.partner.quick_customer_type'), $customer);
 
         return $customerQuickCreateForm;
     }

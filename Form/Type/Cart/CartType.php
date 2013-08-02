@@ -5,7 +5,7 @@ namespace Vespolina\CommerceBundle\Form\Type\Cart;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Vespolina\OrderBundle\Form\Type\CartItemType;
+use Vespolina\CommerceBundle\Form\Type\Cart\CartItemType;
 
 class CartType extends AbstractType
 {

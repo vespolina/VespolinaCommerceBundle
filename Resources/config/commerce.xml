@@ -8,7 +8,7 @@
         <parameter key="vespolina_commerce.asset_manager.class">Vespolina\CommerceBundle\Twig\Extension\AssetManager</parameter>
         <parameter key="vespolina_commerce.asset.class">Vespolina\CommerceBundle\Document\Asset</parameter>
         <parameter key="vespolina_commerce.molino.class">Molino\Doctrine\ODM\MongoDB\Molino</parameter>
-	    <parameter key="vespolina_commerce.event_dispatcher.class">Vespolina\Symfony2Bundle\EventDispatcher\EventDispatcher</parameter>
+	    <parameter key="vespolina_commerce.event_dispatcher.class">Vespolina\CommerceBundle\EventDispatcher\EventDispatcher</parameter>
     </parameters>
 
     <services>
