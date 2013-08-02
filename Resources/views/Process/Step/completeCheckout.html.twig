@@ -1,4 +1,4 @@
-{% extends "VespolinaCommerceBundle::layout.html.twig" %}
+{% extends vespolina_layout_template %}
 
 {% block navigation %}
 <ul class="breadcrumb">
@@ -9,7 +9,7 @@
 
 {% block content %}
 
-{% render "VespolinaCommerceBundle:Process:processNavigator" with {'currentProcessStep': currentProcessStep } %}
+{% render "VespolinaCommerceBundle:Process/Process:processNavigator" with {'currentProcessStep': currentProcessStep } %}
 
 
 <div class="alert alert-info">

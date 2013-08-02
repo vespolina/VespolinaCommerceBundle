@@ -53,7 +53,7 @@ class DetermineFulfillmentController extends AbstractProcessStepController
     {
 
         // Use the fulfillment method resolver to get back a list of supported fulfillment methods
-        $fulfillmentMethodResolver = $this->container->get('vespolina.fulfillment.fulfillment_method_resolver');
+        $fulfillmentMethodResolver = $this->container->get('vespolina_commerce.fulfillment_method_resolver');
         $cart = $this->processStep->getContext()->get('cart');
 
         //Collect all products from the cart

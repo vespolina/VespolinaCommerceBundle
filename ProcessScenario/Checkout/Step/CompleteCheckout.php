@@ -10,7 +10,7 @@ namespace Vespolina\CommerceBundle\ProcessScenario\Checkout\Step;
 
 use Vespolina\Entity\Order\OrderInterface;
 use Vespolina\CommerceBundle\Process\AbstractProcessStep;
-use Vespolina\CommerceBundle\StoreEvents;
+use Vespolina\Entity\Order\OrderEvents;
 use Vespolina\CommerceBundle\Event\CheckoutEvent;
 
 /**
@@ -62,7 +62,7 @@ class CompleteCheckout extends AbstractProcessStep
     protected function createOrderFromCart($cart, $salesOrderManager) {
 
         $store = $this->getProcess()->getContainer()->get('vespolina_store.store_resolver')->getStore();
-        $salesOrderManipulator = $this->getProcess()->getContainer()->get('vespolina_order.order_manipulator');
+        $salesOrderManipulator = $this->getProcess()->getContainer()->get('vespolina.order_manipulator');
 
         $context = $this->getContext();
 
@@ -94,7 +94,7 @@ class CompleteCheckout extends AbstractProcessStep
         //Notify the customer
         $dispatcher = $this->getProcess()->getContainer()->get('event_dispatcher');
         $event = new CheckoutEvent($salesOrder);
-        $dispatcher->dispatch(StoreEvents::COMPLETE_CHECKOUT, $event);
+        $dispatcher->dispatch(OrderEvents::CHECKOUT_COMPLETED, $event);
     }
 
 }

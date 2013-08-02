@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
-use Vespolina\ProductBundle\DependencyInjection\Configuration;
+use Vespolina\CommerceBundle\DependencyInjection\Configuration;
 
 /**
  * @author Richard D Shank <develop@zestic.com>
@@ -36,11 +36,14 @@ class VespolinaCommerceExtension extends Extension
         $configurationFiles = array(
 
             //Persistence specific configurations
-            sprintf('product_%s.xml', $config['db_driver']),
             sprintf('order_%s.xml', $config['db_driver']),
+            sprintf('product_%s.xml', $config['db_driver']),
+            sprintf('partner_%s.xml', $config['db_driver']),
 
             //Generic configurations
             'commerce.xml',
+            'fulfillment.xml',
+            'partner.xml',
             'process.xml',
             'product_identifiers.xml',
             'product_attributes.xml',
@@ -76,6 +79,14 @@ class VespolinaCommerceExtension extends Extension
         }
         if (isset($config['merchandise'])) {
             $this->configureMerchandise($config['merchandise'], $container);
+        }
+
+        if (isset($config['fulfillment_methods'])) {
+            $this->configureFulfillmentMethods($config['fulfillment_methods'], $container);
+        }
+
+        if (isset($config['classMapping']) && is_array($config['classMapping'])) {
+            $this->configureEntityClassMapping($container, $config['classMapping']);
         }
     }
 
@@ -201,5 +212,43 @@ class VespolinaCommerceExtension extends Extension
         if (isset($config['class'])) {
             $container->setParameter('vespolina_commerce.entity.merchandise.class', $config['class']);
         }
+    }
+
+
+    protected function configureEntityClassMapping(ContainerBuilder $container, array $classMapping)
+    {
+        foreach ($classMapping as $name => $class) {
+            if (!class_exists($class)) {
+                throw new InvalidConfigurationException(sprintf(
+                    "Class '%s' not found for entity '%s'",
+                    $class,
+                    $name
+                ));
+            }
+
+            switch ($name) {
+                case 'partner':
+                    $container->setParameter('vespolina_commerce.entity.partner.class', $class);
+                    break;
+                case 'partnerContact':
+                    $container->setParameter('vespolina_commerce.entity.partner_contact.class', $class);
+                    break;
+                case 'partnerAddress':
+                    $container->setParameter('vespolina_commerce.entity.partner_address.class', $class);
+                    break;
+                case 'partnerPersonalDetails':
+                    $container->setParameter('vespolina_commerce.entity.partner_personal_details.class', $class);
+                    break;
+                case 'partnerOrganisationDetails':
+                    $container->setParameter('vespolina_commerce.entity.partner_organisation_details.class', $class);
+                    break;
+            }
+        }
+    }
+
+
+    protected function configureFulfillmentMethods(array $config, ContainerBuilder $container)
+    {
+        $container->setParameter('vespolina_commerce.fulfillment_method_resolver.configuration', $config);
     }
 }

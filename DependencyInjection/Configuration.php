@@ -38,6 +38,8 @@ class Configuration implements ConfigurationInterface
         $this->addProductSection($rootNode);
         $this->addAttributeSection($rootNode);
         $this->addMerchandiseSection($rootNode);
+        $this->addPartnerSection($rootNode);
+        $this->addFulfillmentMethodsSection($rootNode);
 
         return $treeBuilder;
     }
@@ -193,5 +195,39 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+    }
+
+
+    private function addPartnerSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('partnerClassMap')
+                    ->children()
+                        ->scalarNode('partner')->end()
+                        ->scalarNode('partnerContact')->end()
+                        ->scalarNode('partnerAddress')->end()
+                        ->scalarNode('partnerPersonalDetails')->end()
+                        ->scalarNode('partnerOrganisationDetails')->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    protected function addFulfillmentMethodsSection(ArrayNodeDefinition $node)
+    {
+        $node->children()
+                ->arrayNode('fulfillment_methods')
+                    ->children()
+                        ->arrayNode('shipment')
+                        ->prototype('array')
+                        ->children()
+                        ->scalarNode('class')->end()
+                        ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+
     }
 }

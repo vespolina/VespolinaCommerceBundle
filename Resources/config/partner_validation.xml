@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>  
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping  
+        http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+
+        <class name="Vespolina\PartnerBundle\Model\Partner">
+            <property name="personalDetails">
+                <constraint name="NotBlank" />
+                <constraint name="Valid" />
+            </property>
+            <property name="primaryContact">
+                <constraint name="Valid" />
+                <constraint name="NotBlank" />
+            </property>
+            <!--
+            <property name="addresses">
+                <constraint name="Valid">
+                    <option name="traverse">true</option>
+                </constraint>
+                <constraint name="NotBlank" />
+                <constraint name="All">
+                    <option name="constraints">
+                        <constraint name="NotBlank" />
+                    </option>
+                </constraint>
+            </property>
+            -->
+        </class>
+
+        <class name="Vespolina\PartnerBundle\Model\Contact">
+            <property name="email">
+                <constraint name="NotBlank" />
+                <constraint name="Email" />
+            </property>
+        </class>
+
+        <!--
+        <class name="Vespolina\PartnerBundle\Model\PersonalDetails">
+            <property name="lastname">
+                <constraint name="NotBlank" />
+            </property>
+        </class>
+        -->
+
+        <class name="Vespolina\PartnerBundle\Model\Address">
+            <property name="street">
+                <constraint name="NotBlank" />
+            </property>
+            <property name="number">
+                <constraint name="NotBlank" />
+                <constraint name="Type">
+                    <option name="type">integer</option>
+                </constraint>
+            </property>
+        </class>
+</constraint-mapping>

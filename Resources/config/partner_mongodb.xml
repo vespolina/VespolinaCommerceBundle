@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="vespolina_commerce.partner_manager.class">Vespolina\Partner\Manager\PartnerManager</parameter>
+        <parameter key="vespolina_commerce.entity.partner.class">Vespolina\Entity\Partner\Partner</parameter>
+        <parameter key="vespolina_commerce.entity.partner_contact.class">Vespolina\Entity\Partner\Contact</parameter>
+        <parameter key="vespolina_commerce.entity.partner_address.class">Vespolina\Entity\Partner\Address</parameter>
+        <parameter key="vespolina_commerce.entity.partner_personal_details.class">Vespolina\Entity\Partner\PersonalDetails</parameter>
+        <parameter key="vespolina_commerce.entity.partner_organisation_details.class">Vespolina\Entity\Partner\OrganisationDetails</parameter>
+    </parameters>
+
+    <services>
+        <service id="vespolina_commerce.partner_gateway" class="Vespolina\Partner\Gateway\PartnerGateway">
+            <argument type="service" id="vespolina.molino" />
+            <argument>%vespolina_commerce.entity.partner.class%</argument>
+        </service>
+        <service id="vespolina_commerce.partner_manager" class="%vespolina_commerce.partner_manager.class%">
+            <argument type="service" id="vespolina_commerce.partner_gateway" />
+            <argument type="collection">
+                <argument key="partnerClass">%vespolina_commerce.entity.partner.class%</argument>
+                <argument key="partnerContactClass">%vespolina_commerce.entity.partner_contact.class%</argument>
+                <argument key="partnerAddressClass">%vespolina_commerce.entity.partner_address.class%</argument>
+                <argument key="partnerPersonalDetailsClass">%vespolina_commerce.entity.partner_personal_details.class%</argument>
+                <argument key="partnerOrganisationDetailsClass">%vespolina_commerce.entity.partner_organisation_details.class%</argument>
+            </argument>
+            <argument type="collection">
+                <argument>ROLE_CUSTOMER</argument>
+                <argument>ROLE_EMPLOYEE</argument>
+                <argument>ROLE_SUPPLIER</argument>
+            </argument>
+        </service>
+        <service id="vespolina.partner_manager" alias="vespolina_commerce.partner_manager" />
+    </services>
+</container>
