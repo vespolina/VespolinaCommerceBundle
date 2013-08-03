@@ -28,17 +28,19 @@ class VespolinaCommerceExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $dbDriver = strtolower($config['db_driver']);
 
-        if (!in_array(strtolower($config['db_driver']), array('orm', 'mongodb'))) {
+        if (!in_array($dbDriver, array('orm', 'mongodb'))) {
             throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
         }
 
         $configurationFiles = array(
 
             //Persistence specific configurations
-            sprintf('order_%s.xml', $config['db_driver']),
-            sprintf('product_%s.xml', $config['db_driver']),
-            sprintf('partner_%s.xml', $config['db_driver']),
+            sprintf('order_%s.xml', $dbDriver),
+            sprintf('product_%s.xml', $dbDriver),
+            sprintf('partner_%s.xml', $dbDriver),
+            sprintf('taxonomy_%s.xml', $dbDriver),
 
             //Generic configurations
             'commerce.xml',
