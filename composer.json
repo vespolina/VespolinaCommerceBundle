@@ -2,7 +2,7 @@
     "name": "vespolina/commerce-bundle",
     "type": "symfony-bundle",
     "description": "Vespolina Commerce bundle. Integrates vespolina libraries with Symfony2",
-    "keywords": ["shop", "ecommerce", "store", "item"],
+    "keywords": ["vespolina", "shop", "ecommerce", "store", "item"],
     "homepage": "http://vespolina-project.org",
     "license": "MIT",
     "authors": [
