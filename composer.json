@@ -19,6 +19,10 @@
         "vespolina/product": "dev-master",
         "vespolina/taxonomy": "dev-master"
     },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "phpspec/phpspec": "dev-master"
+    },
     "autoload": {
         "psr-0": { "Vespolina\\CommerceBundle": "" }
     },
