@@ -14,18 +14,16 @@ use FOS\UserBundle\Util\UserManipulator;
 use Vespolina\Entity\Partner\Partner;
 use Vespolina\Entity\Partner\PartnerInterface;
 
-
 /**
- *
  * @author Daniel Kucharski <daniel@xerias.be>
  */
 class PartnerManipulator
 {
     protected $userManager;
+    protected $userManipulator;
 
     public function __construct(UserManagerInterface $userManager, UserManipulator $userManipulator)
     {
-
         $this->userManager = $userManager;
         $this->userManipulator = $userManipulator;
     }
