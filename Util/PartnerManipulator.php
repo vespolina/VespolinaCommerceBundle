@@ -31,7 +31,10 @@ class PartnerManipulator
     /**
      * Create a FOS user for the provided partner and link the partner with the created FOS user
      *
-     * @param PartnerInterface $partner
+     * @param \Vespolina\Entity\Partner\PartnerInterface $partner
+     * @param $username
+     * @param $password
+     * @return \FOS\UserBundle\Model\UserInterface
      */
     public function createUser(PartnerInterface $partner, $username, $password)
     {
@@ -59,14 +62,10 @@ class PartnerManipulator
     {
         $userRoles = array();
         foreach ($partnerRoles as $partnerRole) {
-
             $userRoles[] = $partnerRole;
-
             if ($partnerRole == Partner::ROLE_EMPLOYEE) {
-
                 $userRoles[] = 'ROLE_ADMIN';
             }
-
         }
 
         return $userRoles;

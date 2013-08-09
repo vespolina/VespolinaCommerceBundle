@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -24,11 +25,9 @@ class ReviewCheckout extends AbstractProcessStep
 
     public function execute(&$context)
     {
-
         $customerIdentified = false;
 
         if (!$customerIdentified) {
-
             $controller = $this->getController('Vespolina\CommerceBundle\Controller\Process\ReviewCheckoutController');
             $controller->setProcessStep($this);
             $controller->setContainer($this->process->getContainer());
@@ -38,7 +37,6 @@ class ReviewCheckout extends AbstractProcessStep
 
             return true;    //Todo encapsulate return value
         }
-
     }
 
 
@@ -46,6 +44,4 @@ class ReviewCheckout extends AbstractProcessStep
     {
         return 'review_checkout';
     }
-
-
 }
