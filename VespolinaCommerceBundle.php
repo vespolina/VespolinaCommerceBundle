@@ -23,6 +23,5 @@ class VespolinaCommerceBundle extends Bundle
         $container->addCompilerPass(new EventDispatcherListenerPass());
         $container->addCompilerPass(new OrderHandlerFactoryPass());
         $container->addCompilerPass(new ProductHandlerFactoryPass());
-
     }
 }
