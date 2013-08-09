@@ -29,7 +29,7 @@
             <argument>%vespolina_commerce.entity.partner_address.class%</argument>
         </service>
         <service id="vespolina_commerce.partner_manipulator" class="%vespolina_commerce.partner_manipulator.class%">
-        <argument type="service" id="fos_user.user_manager"/>
+            <argument type="service" id="fos_user.user_manager"/>
             <argument type="service" id="fos_user.util.user_manipulator"/>
         </service>
         <service id="vespolina.partner_manipulator" alias="vespolina_commerce.partner_manipulator" />

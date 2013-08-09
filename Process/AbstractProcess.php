@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -10,8 +11,6 @@ namespace Vespolina\CommerceBundle\Process;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Monolog\Logger;
-use Vespolina\CommerceBundle\Process\ProcessInterface;
-use Vespolina\CommerceBundle\Process\ProcessDefinition;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
@@ -63,7 +62,6 @@ abstract class AbstractProcess implements ProcessInterface
             return;
         }
         if ($currentProcessStep = $this->getCurrentProcessStep()) {
-
             $result =  $currentProcessStep->execute($this);
 
             //Fire up the next step using recursion
@@ -77,7 +75,6 @@ abstract class AbstractProcess implements ProcessInterface
                 //We should have received a response
                 return $result;
             }
-
         } else {
 
             throw new \Exception('Could not find a process step to execute for state "' . $this->getState() . '"');
@@ -155,7 +152,6 @@ abstract class AbstractProcess implements ProcessInterface
         $processStep = $this->processSteps->get($name);
 
         if (null == $processStep) {
-
             $data = $this->definition->getStepConfig($name);
             $processStep = new $data['class']($this);
             $this->processSteps->set($name, $processStep);
