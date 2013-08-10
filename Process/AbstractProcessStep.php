@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -7,8 +8,6 @@
  */
 
 namespace Vespolina\CommerceBundle\Process;
-
-use Vespolina\CommerceBundle\Process\ProcessInterface;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>

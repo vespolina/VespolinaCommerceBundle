@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -14,18 +15,16 @@ use FOS\UserBundle\Util\UserManipulator;
 use Vespolina\Entity\Partner\Partner;
 use Vespolina\Entity\Partner\PartnerInterface;
 
-
 /**
- *
  * @author Daniel Kucharski <daniel@xerias.be>
  */
 class PartnerManipulator
 {
     protected $userManager;
+    protected $userManipulator;
 
     public function __construct(UserManagerInterface $userManager, UserManipulator $userManipulator)
     {
-
         $this->userManager = $userManager;
         $this->userManipulator = $userManipulator;
     }
@@ -33,7 +32,10 @@ class PartnerManipulator
     /**
      * Create a FOS user for the provided partner and link the partner with the created FOS user
      *
-     * @param PartnerInterface $partner
+     * @param \Vespolina\Entity\Partner\PartnerInterface $partner
+     * @param $username
+     * @param $password
+     * @return \FOS\UserBundle\Model\UserInterface
      */
     public function createUser(PartnerInterface $partner, $username, $password)
     {
@@ -61,14 +63,10 @@ class PartnerManipulator
     {
         $userRoles = array();
         foreach ($partnerRoles as $partnerRole) {
-
             $userRoles[] = $partnerRole;
-
             if ($partnerRole == Partner::ROLE_EMPLOYEE) {
-
                 $userRoles[] = 'ROLE_ADMIN';
             }
-
         }
 
         return $userRoles;

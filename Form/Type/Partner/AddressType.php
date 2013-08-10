@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -37,7 +38,7 @@ class AddressType extends AbstractType
             ->add('zipcode', null, array('required' => false))
             ->add('city', null, array('required' => false))
             ->add('country', 'country')
-           ;
+        ;
     }
     
     public function getDefaultOptions(array $options = array())

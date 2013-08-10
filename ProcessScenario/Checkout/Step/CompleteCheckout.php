@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -96,5 +97,4 @@ class CompleteCheckout extends AbstractProcessStep
         $event = new CheckoutEvent($salesOrder);
         $dispatcher->dispatch(OrderEvents::CHECKOUT_COMPLETED, $event);
     }
-
 }

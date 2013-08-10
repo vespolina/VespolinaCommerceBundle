@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -33,7 +34,7 @@ class PersonalDetailsType extends AbstractType
         $formBuilder
             ->add('firstname')
             ->add('lastname')
-           ;
+        ;
     }
     
     public function getDefaultOptions(array $options = array())

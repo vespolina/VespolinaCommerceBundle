@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -8,8 +9,8 @@
 
 namespace Vespolina\CommerceBundle\Event;
 
-use \Symfony\Component\HttpKernel\Event\KernelEvent;
-use \Vespolina\Entity\Order\OrderInterface;
+use Symfony\Component\HttpKernel\Event\KernelEvent;
+use Vespolina\Entity\Order\OrderInterface;
 
 class CheckoutEvent extends KernelEvent
 {

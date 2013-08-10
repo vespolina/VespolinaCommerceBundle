@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) 2011 - ∞ Vespolina Project http://www.vespolina-project.org
  *
@@ -8,14 +9,12 @@
 
 namespace Vespolina\CommerceBundle\Fulfillment\Method;
 
-use Vespolina\CommerceBundle\Fulfillment\Method\AbstractMethod;
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
  */
 
 class AbstractDownloadMethod extends AbstractMethod
 {
-
     public function __construct()
     {
         $this->setType(MethodInterface::VIRTUAL_FULFILLMENT);
@@ -37,5 +36,4 @@ class AbstractDownloadMethod extends AbstractMethod
     {
         return $this->locations;
     }
-
 }

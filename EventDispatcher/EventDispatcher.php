@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) 2012 Vespolina Project http://www.vespolina-project.org
  *
@@ -11,7 +12,6 @@ namespace Vespolina\CommerceBundle\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as SymfonyEventDispatcherInterface;
 use Vespolina\EventDispatcher\EventDispatcherInterface;
 use Vespolina\EventDispatcher\EventInterface;
-use Vespolina\CommerceBundle\EventDispatcher\Event;
 
 class EventDispatcher implements EventDispatcherInterface
 {

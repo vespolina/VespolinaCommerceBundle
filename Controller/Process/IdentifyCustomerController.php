@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * (c) 2011 - ∞ Vespolina Project http://www.vespolina-project.org
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Vespolina\CommerceBundle\Controller\Process;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,11 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\ValidatorException;
 use Vespolina\CommerceBundle\Form\Type\Partner\QuickCustomerType;
 use Vespolina\CommerceBundle\Form\Type\Process\CustomerQuickCreateFormType;
-use Vespolina\CommerceBundle\Controller\Process\AbstractProcessStepController;
 
 class IdentifyCustomerController extends AbstractProcessStepController
 {
-
     public function executeAction()
     {
         $customerQuickCreateForm = $this->createCustomerQuickCreateForm();

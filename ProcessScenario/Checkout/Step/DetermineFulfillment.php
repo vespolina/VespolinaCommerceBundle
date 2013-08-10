@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -40,11 +41,8 @@ class DetermineFulfillment extends AbstractProcessStep
 
     }
 
-
     public function getName()
     {
         return 'determine_fulfillment';
     }
-
-
 }

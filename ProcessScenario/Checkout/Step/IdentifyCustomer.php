@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -28,12 +29,9 @@ class IdentifyCustomer extends AbstractProcessStep
 
         // If we already have a customer, this step is considered to be complete
         if (null != $customer) {
-
             $this->getContext()->set('customer', $customer);
             $this->complete();
-
         } else {
-
             $controller = $this->getController('Vespolina\CommerceBundle\Controller\Process\IdentifyCustomerController');
             $controller->setProcessStep($this);
             $controller->setContainer($this->process->getContainer());

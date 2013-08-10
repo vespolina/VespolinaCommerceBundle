@@ -1,13 +1,13 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-namespace Vespolina\CommerceBundle\Process;
 
-use Vespolina\CommerceBundle\Process\ProcessDefinitionInterface;
+namespace Vespolina\CommerceBundle\Process;
 
 /**
  * The process interface models a generic business process
@@ -16,7 +16,6 @@ use Vespolina\CommerceBundle\Process\ProcessDefinitionInterface;
  */
 interface ProcessInterface
 {
-
     /**
      * Build the process definition (which and how steps need to be performed)
      *
