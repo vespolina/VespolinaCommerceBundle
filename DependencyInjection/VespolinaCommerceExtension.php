@@ -1,10 +1,12 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vespolina\CommerceBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
@@ -12,8 +14,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-
-use Vespolina\CommerceBundle\DependencyInjection\Configuration;
 
 /**
  * @author Richard D Shank <develop@zestic.com>

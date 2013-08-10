@@ -1,10 +1,12 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vespolina\CommerceBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -28,7 +30,8 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
-            ->end();
+            ->end()
+        ;
 
         $this->addIdentifierSetSection($rootNode);
         $this->addOptionGroupSection($rootNode);
@@ -211,7 +214,8 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('partnerOrganisationDetails')->end()
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
     }
 
     protected function addFulfillmentMethodsSection(ArrayNodeDefinition $node)
@@ -227,7 +231,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end();
-
+            ->end()
+        ;
     }
 }
