@@ -75,5 +75,4 @@ class CheckoutProcessB2C extends AbstractProcess
     {
         return 'checkout_b2c';
     }
-
 }

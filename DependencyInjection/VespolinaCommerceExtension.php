@@ -14,6 +14,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Vespolina\Exception\InvalidConfigurationException;
 
 /**
  * @author Richard D Shank <develop@zestic.com>
@@ -35,13 +36,11 @@ class VespolinaCommerceExtension extends Extension
         }
 
         $configurationFiles = array(
-
             //Persistence specific configurations
             sprintf('order_%s.xml', $dbDriver),
             sprintf('product_%s.xml', $dbDriver),
             sprintf('partner_%s.xml', $dbDriver),
             sprintf('taxonomy_%s.xml', $dbDriver),
-
             //Generic configurations
             'commerce.xml',
             'fulfillment.xml',
@@ -52,7 +51,8 @@ class VespolinaCommerceExtension extends Extension
             'product_options.xml',
             'product_form.xml',
             'order.xml',
-            'twig.xml');
+            'twig.xml'
+        );
 
         foreach ($configurationFiles as $configurationFile) {
             $loader->load($configurationFile);
@@ -82,7 +82,6 @@ class VespolinaCommerceExtension extends Extension
         if (isset($config['merchandise'])) {
             $this->configureMerchandise($config['merchandise'], $container);
         }
-
         if (isset($config['fulfillment_methods'])) {
             $this->configureFulfillmentMethods($config['fulfillment_methods'], $container);
         }
@@ -174,11 +173,9 @@ class VespolinaCommerceExtension extends Extension
         if (isset($config['class'])) {
             $container->setParameter('vespolina_commerce.product_manager.class', $config['class']);
         }
-
         if (isset($config['identifiers'])) {
             $container->setParameter('vespolina_commerce.product_manager.identifiers', $config['identifiers']);
         }
-
         if (isset($config['image_manager'])) {
             $container->setAlias('vespolina_commerce.image_manager', $config['image_manager']);
         }
@@ -216,7 +213,6 @@ class VespolinaCommerceExtension extends Extension
         }
     }
 
-
     protected function configureEntityClassMapping(ContainerBuilder $container, array $classMapping)
     {
         foreach ($classMapping as $name => $class) {
@@ -247,7 +243,6 @@ class VespolinaCommerceExtension extends Extension
             }
         }
     }
-
 
     protected function configureFulfillmentMethods(array $config, ContainerBuilder $container)
     {

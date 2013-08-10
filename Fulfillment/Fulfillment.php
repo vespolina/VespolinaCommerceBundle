@@ -9,7 +9,7 @@
 
 namespace Vespolina\CommerceBundle\Fulfillment;
 
-use Vespolina\CommerceBundle\Fulfillment\FulfillmentInterface;
+use Vespolina\CommerceBundle\Fulfillment\Manager\FulfillmentInterface;
 
 abstract class Fulfillment implements FulfillmentInterface
 {

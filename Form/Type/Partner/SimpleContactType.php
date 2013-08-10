@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -32,7 +33,7 @@ class SimpleContactType extends AbstractType
     {
         $formBuilder
             ->add('email', null, array('required' => true))
-           ;
+        ;
     }
     
     public function getDefaultOptions(array $options = array())

@@ -7,11 +7,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\CommerceBundle\Fulfillment;
+namespace Vespolina\CommerceBundle\Fulfillment\Manager;
 
 use Vespolina\CommerceBundle\Fulfillment\Fulfillment;
-use Vespolina\CommerceBundle\Fulfillment\FulfillmentInterface;
-use Vespolina\CommerceBundle\Fulfillment\FulfillmentManagerInterface;
+use Vespolina\CommerceBundle\Fulfillment\Manager\FulfillmentManagerInterface;
+use Vespolina\CommerceBundle\Fulfillment\Manager\FulfillmentInterface;
 
 /**
  * @author Richard Shank <develop@zestic.com>
@@ -29,11 +29,11 @@ abstract class FulfillmentManager implements FulfillmentManagerInterface
     /**
      * Create a Fulfillment instance
      *
-     * @return Vespolina\CommerceBundle\Fulfillment\FulfillmentInterface
+     * @param $product
+     * @return FulfillmentInterface
      */
     public function createFulfillment($product)
     {
         return new $this->fulfillmentClass($product);
     }
-
 }

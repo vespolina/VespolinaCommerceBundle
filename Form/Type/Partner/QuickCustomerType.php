@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -35,8 +36,8 @@ class QuickCustomerType extends AbstractType
             ->add('primaryContact', 'vespolina_commerce_simple_contact')
             ->add('address', 'vespolina_commerce_address', array(
                 'property_path'	=> false,
-            ))
-           ;
+            )
+        );
     }
 
     public function getDefaultOptions(array $options = array())

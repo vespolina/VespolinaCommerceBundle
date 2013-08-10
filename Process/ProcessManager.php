@@ -1,27 +1,25 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vespolina\CommerceBundle\Process;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 
-use Vespolina\CommerceBundle\Process\ProcessInterface;
-use Vespolina\CommerceBundle\Process\ProcessManagerInterface;
-
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
  */
- class ProcessManager extends ContainerAware implements ProcessManagerInterface {
-
+class ProcessManager extends ContainerAware implements ProcessManagerInterface
+{
     protected $classMap;
     protected $session;
 
     public function __construct($dm, $session) {
-
         $this->classMap = $this->getClassMap();
         $this->session = $session;
     }
@@ -36,7 +34,6 @@ use Vespolina\CommerceBundle\Process\ProcessManagerInterface;
     }
 
     public function loadProcessFromContext($name, $context) {
-
         $baseClass = $this->getProcessClass($name);
         $process = new $baseClass($this->container, $context);
         $process->setId($context->get('id'));
@@ -100,5 +97,4 @@ use Vespolina\CommerceBundle\Process\ProcessManagerInterface;
             'checkout_b2c' =>  'Vespolina\CommerceBundle\ProcessScenario\Checkout\CheckoutProcessB2C'
         );
     }
-
 }
