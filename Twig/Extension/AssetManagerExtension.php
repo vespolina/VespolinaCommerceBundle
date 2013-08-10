@@ -1,21 +1,27 @@
 <?php
 
+/**
+ * (c) 2011 - ∞ Vespolina Project http://www.vespolina-project.org
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Vespolina\CommerceBundle\Twig\Extension;
-use Symfony\Comonent\HttpKernel\KernelInterface;
-use Vespolina\CommerceBundle\Twig\Extension\AssetManager;
 
 class AssetManagerExtension extends \Twig_Extension
 {
     private $assetManager;
 
-    public function __construct (AssetManager $assetManager = null)
+    public function __construct(AssetManager $assetManager = null)
     {
         $this->assetManager = $assetManager;
     }
+
     public function getFunctions()
     {
         return array(
-                'assetManager' => new \Twig_Function_Method( $this,  'getAssetManager')
+            'assetManager' => new \Twig_Function_Method($this, 'getAssetManager')
         );
     }
 

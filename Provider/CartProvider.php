@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) 2011 - ∞ Vespolina Project http://www.vespolina-project.org
  *
@@ -14,7 +15,6 @@ use Vespolina\Entity\Order\CartInterface;
 use Vespolina\Entity\Partner\PartnerInterface;
 use Vespolina\Entity\Pricing\Element\TotalDoughValueElement;
 use Vespolina\Entity\Pricing\PricingSet;
-use Vespolina\CommerceBundle\Provider\CartProviderInterface;
 use Vespolina\Order\Manager\OrderManagerInterface;
 
 /**
@@ -44,13 +44,11 @@ class CartProvider implements CartProviderInterface
         //Let us check the order manager if an open cart can be found in the persistence layer
 
         if (null != $owner) {
-
             $cart = $this->orderManager->findCartByOwner($owner);
         }
 
         //If the cart is empty or invalid a new cart should be created
         if (null == $cart || !$this->isValidCart($cart, $owner)) {
-
             $cart = $this->orderManager->createCart();
             if (null != $owner ) {
                 $cart->setOwner($owner);
@@ -75,7 +73,6 @@ class CartProvider implements CartProviderInterface
 
     protected function isValidCart(CartInterface $cart = null, PartnerInterface $owner = null)
     {
-
         if (null == $cart) {
 
             return false;

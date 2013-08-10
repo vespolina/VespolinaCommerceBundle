@@ -1,10 +1,12 @@
 <?php
+
 /**
  * (c) 2012 - 2013 Vespolina Project http://www.vespolina-project.org
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vespolina\CommerceBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Reference;
@@ -27,6 +29,5 @@ class OrderHandlerFactoryPass implements CompilerPassInterface
             $taxationManagerDefinition = $container->getDefinition('v_taxation.taxation_manager');
             $factory->addMethodCall('setTaxationManager', array($taxationManagerDefinition));
         }
-
     }
 }

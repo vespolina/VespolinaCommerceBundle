@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\CommerceBundle\Fulfillment;
+namespace Vespolina\CommerceBundle\Fulfillment\Manager;
 
 /**
  * @author Richard Shank <develop@zestic.com>

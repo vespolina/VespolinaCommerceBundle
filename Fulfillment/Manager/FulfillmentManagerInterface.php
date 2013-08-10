@@ -7,9 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\CommerceBundle\Fulfillment;
-
-use Vespolina\CommerceBundle\Fulfillment\FulfillmentInterface;
+namespace Vespolina\CommerceBundle\Fulfillment\Manager;
 
 /**
  * @author Richard Shank <develop@zestic.com>
@@ -18,8 +16,8 @@ interface FulfillmentManagerInterface
 {
     /**
      * Create a Fulfillment instance
-     * @arg $product
-     * @return Vespolina\CommerceBundle\Fulfillment\FulfillmentInterface
+     * @param $product
+     * @return \Vespolina\CommerceBundle\Fulfillment\Manager\FulfillmentInterface
      */
     public function createFulfillment($product);
 
@@ -46,9 +44,9 @@ interface FulfillmentManagerInterface
     /**
      * Update and persist the fulfillment
      *
-     * @param Vespolina\CommerceBundle\Fulfillment\FulfillmentInterface $fulfillment
-     * @param Boolean                                                $andFlush    Whether to flush the changes (default true)
+     * @param FulfillmentInterface $fulfillment
+     * @param Boolean $andFlush    Whether to flush the changes (default true)
+     * @return
      */
     public function updateFulfillment(FulfillmentInterface $fulfillment, $andFlush = true);
-
 }

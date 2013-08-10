@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) 2011 - ∞ Vespolina Project http://www.vespolina-project.org
  *
@@ -40,5 +41,4 @@ interface MethodInterface
      * @return mixed
      */
     public function getCategories();
-
 }

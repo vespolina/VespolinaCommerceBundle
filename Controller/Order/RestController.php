@@ -1,10 +1,12 @@
 <?php
+
 /**
  * (c) 2011 - ∞ Vespolina Project http://www.vespolina-project.org
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vespolina\CommerceBundle\Controller\Order;
 
 use FOS\RestBundle\Controller\Annotations\RouteResource;
@@ -23,17 +25,14 @@ class RestController extends FOSRestController
     protected $orderManager;
     protected $viewHandler;
 
-
     public function __construct(OrderManagerInterface $orderManager, ViewHandlerInterface $viewHandler)
     {
       $this->orderManager = $orderManager;
       $this->viewHandler = $viewHandler;
-
     }
 
     public function getOrdersAction()
     {
-
         $orders = $this->orderManager->findBy(array());
 
         return $this->createResponse(200, $orders);
@@ -60,7 +59,8 @@ class RestController extends FOSRestController
     {
         $view = View::create()
             ->setStatusCode($statusCode)
-            ->setData($data);
+            ->setData($data)
+        ;
 
         return $this->viewHandler->handle($view);
     }

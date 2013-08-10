@@ -1,15 +1,20 @@
 <?php
 
+/**
+ * (c) 2011 - ∞ Vespolina Project http://www.vespolina-project.org
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Vespolina\CommerceBundle\Controller\Process;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Vespolina\CommerceBundle\Form\Type\Process\CheckoutReviewFormType;
-use Vespolina\CommerceBundle\Controller\Process\AbstractProcessStepController;
 
 class ReviewCheckoutController extends AbstractProcessStepController
 {
-
     public function executeAction()
     {
         $processManager = $this->container->get('vespolina.process_manager');
@@ -46,6 +51,4 @@ class ReviewCheckoutController extends AbstractProcessStepController
 
         return $checkoutReviewForm;
     }
-
-
 }

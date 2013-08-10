@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) 2011 - ∞ Vespolina Project http://www.vespolina-project.org
  *
@@ -8,14 +9,11 @@
 
 namespace Vespolina\CommerceBundle\Fulfillment\Method;
 
-use Vespolina\CommerceBundle\Fulfillment\Method\MethodInterface;
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
  */
-
 abstract class AbstractMethod implements MethodInterface
 {
-
     protected $categories;
     protected $description;
     protected $name;

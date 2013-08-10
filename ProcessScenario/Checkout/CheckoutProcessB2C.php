@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -74,5 +75,4 @@ class CheckoutProcessB2C extends AbstractProcess
     {
         return 'checkout_b2c';
     }
-
 }

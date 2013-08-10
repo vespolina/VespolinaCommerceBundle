@@ -7,12 +7,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\CommerceBundle\Twig\Extension;
-
-class AssetManager {
-
-    public function hasType($a, $b) {
-
-        return false;
-    }
+$file = __DIR__.'/../vendor/autoload.php';
+if (!file_exists($file)) {
+    throw new RuntimeException('Install dependencies to run test suite.');
 }
+
+$autoload = require_once $file;

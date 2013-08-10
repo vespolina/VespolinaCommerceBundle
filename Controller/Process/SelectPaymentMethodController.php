@@ -1,9 +1,15 @@
 <?php
 
+/**
+ * (c) 2011 - ∞ Vespolina Project http://www.vespolina-project.org
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Vespolina\CommerceBundle\Controller\Process;
 
 use Symfony\Component\HttpFoundation\Request;
-use Vespolina\CommerceBundle\Controller\Process\AbstractProcessStepController;
 use Vespolina\CommerceBundle\Form\Type\Process\SelectPaymentMethodFormType;
 
 class SelectPaymentMethodController extends AbstractProcessStepController
@@ -48,10 +54,10 @@ class SelectPaymentMethodController extends AbstractProcessStepController
 
     protected function getPaymentMethodChoices()
     {
-        return
-            array('pay_pal' => 'Paypal',
-                  'credit_card' => 'Credit card',
-                  'bank_transfer' => 'Bank transfer');
+        return array(
+            'pay_pal' => 'Paypal',
+            'credit_card' => 'Credit card',
+            'bank_transfer' => 'Bank transfer'
+        );
     }
-
 }

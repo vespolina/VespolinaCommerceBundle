@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) Vespolina Project http://www.vespolina-project.org
  *
@@ -24,7 +25,6 @@ class SelectPaymentMethod extends AbstractProcessStep
 
     public function execute(&$context)
     {
-
         $customerIdentified = false;
 
         if (!$customerIdentified) {
@@ -42,8 +42,6 @@ class SelectPaymentMethod extends AbstractProcessStep
     }
 
     public function executeProcessStep($name) {
-
-
         $processStep = $this->getProcessStep($name);
 
         if ($processStep) {
@@ -56,6 +54,4 @@ class SelectPaymentMethod extends AbstractProcessStep
     {
         return 'select_payment_method';
     }
-
-
 }
