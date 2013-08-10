@@ -1,4 +1,5 @@
 <?php
+
 /**
  * (c) 2011 - ∞ Vespolina Project http://www.vespolina-project.org
  *
@@ -15,7 +16,6 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 /**
  * @author Richard D Shank <develop@zestic.com>
  */
-
 class CheckoutController extends AbstractController
 {
     public function checkoutAction()
@@ -42,7 +42,6 @@ class CheckoutController extends AbstractController
     }
 
     public function executeAction($processId, $processStepName) {
-
         $processManager = $this->container->get('vespolina.process_manager');
         $process =  $processManager->findProcessById($processId);
 
