@@ -44,7 +44,6 @@ class VespolinaCommerceExtension extends Extension
             //Generic configurations
             'commerce.xml',
             'fulfillment.xml',
-            'partner.xml',
             'process.xml',
             'pricing.xml',
             'product_identifiers.xml',
@@ -54,6 +53,13 @@ class VespolinaCommerceExtension extends Extension
             'order.xml',
             'twig.xml'
         );
+
+        // This check isn't waterproof, because we can't check if the bundle
+        // is actually activated, but $container->has('fos_user.user_manager')
+        // is even a worse choice
+        if (class_exists('FOS\UserBundle\Model\UserManager')) {
+            $configurationFiles[] = 'partner.xml';
+        }
 
         foreach ($configurationFiles as $configurationFile) {
             $loader->load($configurationFile);
