@@ -14,9 +14,7 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": ">=2.1",
-        "vespolina/order": "dev-master",
-        "vespolina/partner": "dev-master",
-        "vespolina/product": "dev-master",
+        "vespolina/commerce": "dev-master",
         "vespolina/taxonomy": "dev-master"
     },
     "require-dev": {
