@@ -20,7 +20,7 @@
                     {{ form_widget(item.quantity, { 'attr': { 'class': 'span1'}}) }}
                     {{ form_widget(item.product.id) }}
                 </td>
-                <td>{# {{ item.vars.value.pricing.get('totalPrice') | price_format(store.defaultCurrency)}} #}</td>
+                <td>{{ price(item.vars.value,'totalPrice')}} </td>
                 <td><a href="{{ path('v_cart_remove_product', {'productId': item.vars.value.product.id}) }}"><i class="icon-trash"></i></a></td>
             </tr>
         {% else %}
@@ -43,9 +43,15 @@
 
 <div class="well span3 offset6">
     <p align="center">
+<<<<<<< HEAD
         <strong>Grand Total</strong> {{ cart.totalPrice | price_format(store.settings.default_currency) }}<br/>
         {% if cart.getAttribute('taxation_enabled') == true %}
             Tax {{ cart.pricing.get('totalTax') | price_format(store.settings.default_currency) }}<br/>
+=======
+        <strong>Grand Total</strong> {{ price(cart,'totalPrice') }}<br/>
+        {% if cart.getAttribute('taxation_enabled') == true %}
+            Tax {{ price(cart, 'totalTax') }}<br/>
+>>>>>>> 1061c15eab218142115ea73f674a8ed941c34e47
         {% endif %}
         <br/>
         <a href="{{ path('v_cart_checkout')}}" class="btn btn-success">
