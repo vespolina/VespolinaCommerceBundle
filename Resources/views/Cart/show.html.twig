@@ -43,15 +43,9 @@
 
 <div class="well span3 offset6">
     <p align="center">
-<<<<<<< HEAD
-        <strong>Grand Total</strong> {{ cart.totalPrice | price_format(store.settings.default_currency) }}<br/>
-        {% if cart.getAttribute('taxation_enabled') == true %}
-            Tax {{ cart.pricing.get('totalTax') | price_format(store.settings.default_currency) }}<br/>
-=======
         <strong>Grand Total</strong> {{ price(cart,'totalPrice') }}<br/>
         {% if cart.getAttribute('taxation_enabled') == true %}
             Tax {{ price(cart, 'totalTax') }}<br/>
->>>>>>> 1061c15eab218142115ea73f674a8ed941c34e47
         {% endif %}
         <br/>
         <a href="{{ path('v_cart_checkout')}}" class="btn btn-success">
