@@ -72,7 +72,7 @@ class DefaultController extends AbstractController
                 if ($item['quantity'] < 1)
                 {
                     $this->container->get('vespolina.order_manager')->removeItemFromCart ($cart, $product);
-                } elseif ($cartItem = $this->container->get('vespolina.order_manager')->findItemInOrder($cart, $product)) {
+                } elseif ($cartItem = $this->container->get('vespolina.order_manager')->findProductInOrder($cart, $product)) {
                     $this->container->get('vespolina.order_manager')->setItemQuantity($cartItem, $item['quantity']);
                 }
             }
