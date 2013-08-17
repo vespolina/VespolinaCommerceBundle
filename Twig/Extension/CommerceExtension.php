@@ -31,9 +31,15 @@ class CommerceExtension extends \Twig_Extension
         );
     }
 
+
     public function getAssetManager()
     {
         return $this->assetManager;
+    }
+
+    public function getAssetData($entity, $type)
+    {
+
     }
 
     public function getPrice($entity, $priceElementName, $currency = '')
@@ -43,7 +49,7 @@ class CommerceExtension extends \Twig_Extension
         $pricingValue = $pricingSet[$priceElementName];
 
         if (null == $pricingValue) return;
-        
+
         $cur = $currency != '' ? $currency :  $pricingValue->getCurrency();
 
         return $this->priceFormat(

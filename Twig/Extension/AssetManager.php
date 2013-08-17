@@ -11,8 +11,18 @@ namespace Vespolina\CommerceBundle\Twig\Extension;
 
 class AssetManager {
 
-    public function hasType($a, $b) {
+    public function hasType($entity, $type)
+    {
 
         return false;
+    }
+
+    public function getAsset($entity, $type)
+    {
+
+    }
+    public function getAssets($entity, $type)
+    {
+
     }
 }
