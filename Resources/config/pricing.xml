@@ -10,7 +10,6 @@
 
     <services>
         <service id="vespolina_commerce.pricing_manager" class="%vespolina_commerce.pricing_manager.class%">
-            <argument type="service" id="vespolina.event_dispatcher"/>
         </service>
         <service id="vespolina.pricing_manager" alias="vespolina_commerce.pricing_manager"/>
     </services>
