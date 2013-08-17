@@ -35,7 +35,7 @@
                     {% set discount_rate = ( product_pricing['unitPriceTotal'] - product_pricing['unitPriceMSRPTotal'] ) / product_pricing['unitPriceTotal'] %}
 
                     <div class="v-product-unit-price-total">
-                        {{ product_pricing['unitPriceTotal'] | price_format(store.defaultCurrency) }}
+                        {{ product_pricing['unitPriceTotal'] }}
                     </div>
 
                     <span class="v-product-unit-price-msrp-total">

@@ -8,6 +8,7 @@
         <service id="twig.extension.vespolina.assetManager" class="Vespolina\CommerceBundle\Twig\Extension\CommerceExtension" public="false">
             <argument type="service" id="vespolina_commerce.asset_manager" />
             <argument type="service" id="vespolina_commerce.pricing_manager" />
+            <argument type="service" id="vespolina_store.store_resolver" />
             <tag name="twig.extension" />
         </service>
     </services>
