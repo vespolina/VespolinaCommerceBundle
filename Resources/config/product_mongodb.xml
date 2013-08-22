@@ -16,7 +16,7 @@
     </parameters>
 
     <services>
-        <service id="vespolina_commerce.product_gateway" class="Vespolina\Product\Gateway\ProductDoctrineMongoDbGateway">
+        <service id="vespolina_commerce.product_gateway" class="Vespolina\Product\Gateway\ProductDoctrineMongoDBGateway">
             <argument type="service" id="doctrine_mongodb.odm.default_document_manager" />
             <argument>%vespolina_commerce.entity.product.class%</argument>
         </service>
