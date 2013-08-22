@@ -28,6 +28,9 @@
                 <argument key="orderClass">%vespolina_commerce.entity.order.class%</argument>
                 <argument key="eventsClass">%vespolina_commerce.entity.events.class%</argument>
             </argument>
+            <argument type="collection">
+                <argument type="service" id="vespolina_commerce.pricing_manager" />
+            </argument>
             <argument type="service" id="vespolina.event_dispatcher"/>
             <argument key="autoPersist">%vespolina_commerce.config.auto_persist%</argument>
         </service>
