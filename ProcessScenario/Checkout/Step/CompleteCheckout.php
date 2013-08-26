@@ -53,16 +53,14 @@ class CompleteCheckout extends AbstractProcessStep
         return $controller->executeAction();
     }
 
-
     public function getName()
     {
         return 'complete_checkout';
     }
 
-
-    protected function createOrderFromCart($cart, $salesOrderManager) {
-
-        $store = $this->getProcess()->getContainer()->get('vespolina_store.store_resolver')->getStore();
+    protected function createOrderFromCart($cart, $salesOrderManager) 
+    {
+        // $store = $this->getProcess()->getContainer()->get('vespolina_store.store_resolver')->getStore();
         $salesOrderManipulator = $this->getProcess()->getContainer()->get('vespolina.order_manipulator');
 
         $context = $this->getContext();
