@@ -61,10 +61,6 @@ class NotifyCustomerTest extends \PHPUnit_Framework_TestCase
         $order = new Order();
         $order->setOwner($customer);
 
-        $product = new Product();
-        $product->setName('Golden Gun');
-        
-
         return $order;
     }
 
