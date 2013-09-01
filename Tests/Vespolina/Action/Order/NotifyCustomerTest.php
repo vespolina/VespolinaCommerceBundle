@@ -9,9 +9,15 @@
 
 namespace Vespolina\CommerceBundle\Tests\Action\Order;
 
+use Symfony\Bundle\FrameworkBundle\Templating\TemplateFilenameParser;
+use Symfony\Bundle\SecurityBundle\Tests\Functional\WebTestCase;
+use Symfony\Bundle\TwigBundle\Loader\FilesystemLoader;
+use Symfony\Bundle\TwigBundle\TwigEngine;
+use Symfony\Component\HttpKernel\Config\FileLocator;
 use Vespolina\Action\Gateway\ActionMemoryGateway;
 use Vespolina\Action\Manager\ActionManager;
 use Vespolina\CommerceBundle\Action\Order\NotifyCustomer;
+use Vespolina\CommerceBundle\Tests\AppKernel;
 use Vespolina\Entity\Action\Action;
 use Vespolina\Entity\Action\ActionDefinition;
 use Vespolina\Entity\Order\Order;
@@ -23,21 +29,27 @@ use Vespolina\Entity\Partner\Partner;
  *
  * @author Daniel Kucharski <daniel@xerias.be>
  */
-class NotifyCustomerTest extends \PHPUnit_Framework_TestCase
+class NotifyCustomerTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
-
     protected $actionManager;
 
     public function setUp()
     {
         //Setup an action manager with in memory definition storage
         $this->actionManager = new ActionManager(new ActionMemoryGateway(), null);
+
+        $this->client = self::createClient();
+
+        parent::setUp();
     }
 
     public function testNotifyCustomer()
     {
+
+        $renderer = new TwigEngine(new \Twig_Environment(), new TemplateFilenameParser(), new FilesystemLoader());
+        $notifyCustomer = new NotifyCustomer($renderer);
         $this->registerActionDefinition('notifyCustomer',
-                                        'Vespolina\CommerceBundle\Action\Order\NotifyCustomer',
+                                        $notifyCustomer,
                                         array('type' => 'new_order', 'template' => 'test.twig'));
 
         $action = $this->actionManager->createAndExecuteAction('notifyCustomer', $this->getOrder());
@@ -46,11 +58,12 @@ class NotifyCustomerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($action->isCompleted());
     }
 
-    protected function registerActionDefinition($name, $class, $parameters = null)
+    protected function registerActionDefinition($name, $executionClass, $parameters = null)
     {
         $actionDefinition = new ActionDefinition('notifyCustomer', 'Vespolina\CommerceBundle\Action\Order\NotifyCustomer');
         $actionDefinition->setParameters(array('type' => 'new_order', 'template' => 'test.twig'));
         $this->actionManager->addActionDefinition($actionDefinition);
+        $this->actionManager->addExecutionClass($executionClass);
     }
 
     protected function getOrder()

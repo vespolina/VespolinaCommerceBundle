@@ -13,3 +13,5 @@ if (!file_exists($file)) {
 }
 
 $autoload = require_once $file;
+
+//$autoload->add('Vespolina\CommerceBundle\Tests', __DIR__.'/');
