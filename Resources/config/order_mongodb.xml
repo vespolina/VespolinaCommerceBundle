@@ -30,7 +30,7 @@
             </argument>
             <argument type="collection">
                 <argument key="pricingManager" type="service" id="vespolina_commerce.pricing_manager" />
-            </argument>
+            </argument> 
             <argument type="service" id="vespolina.event_dispatcher"/>
             <argument key="autoPersist">%vespolina_commerce.config.auto_persist%</argument>
         </service>
