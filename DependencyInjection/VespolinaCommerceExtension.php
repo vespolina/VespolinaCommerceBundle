@@ -37,11 +37,13 @@ class VespolinaCommerceExtension extends Extension
 
         $configurationFiles = array(
             //Persistence specific configurations
+            sprintf('action_%s.xml', $dbDriver),
             sprintf('order_%s.xml', $dbDriver),
             sprintf('product_%s.xml', $dbDriver),
             sprintf('partner_%s.xml', $dbDriver),
             sprintf('taxonomy_%s.xml', $dbDriver),
             //Generic configurations
+            'action.xml',
             'commerce.xml',
             'fulfillment.xml',
             'partner.xml',
