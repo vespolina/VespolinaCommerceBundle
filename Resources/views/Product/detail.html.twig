@@ -1,14 +1,14 @@
 {% extends "VespolinaStoreBundle::layout.html.twig" %}
 
 {% block navigation %}
-    <ul class="breadcrumb">
-      <li><a href="{{ path('v_store_home') }}">Home</a> <span class="divider">/</span></li>
+    <ol class="breadcrumb">
+      <li><a href="{{ path('v_store_home') }}">Home</a></li>
       <li class="active">{{product.name}}</li>
-    </ul>
+    </ol>
 {% endblock %}
 
 {% block content %}
-<div class="v-product-detail row" >
+<div class="v-product-detail row">
     <div class="span10">
         <div class="row">
             <div class="span8">
