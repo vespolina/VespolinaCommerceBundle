@@ -9,51 +9,52 @@
 
 {% block content %}
 <div class="v-product-detail row">
-    <div class="span10">
-        <div class="row">
-            <div class="span8">
-                <div class="v-product-primary-media-item row">
-                <ul class="thumbnails">
-                    <li class="span8">
-                        <div class="thumbnail">
-                            {% set asset = assetManager().getAsset(product, 'product_main_detail')  %}
-                            {% if asset is not null %}
-                            <img src="{{asset.uri }}"/>
-                            {%  endif %}
-                        </div>
-                    </li>
-                {% for asset in assetManager().getAssets(product, 'secondary_detail') %}
-                    <li class="span2">
-                        <div class="thumbnail">
-                            <img src="{{ asset( asset.filename) }}"
-                        </div>
-                    </li>
-                {% endfor %}
-                </ul>
-                </div>
-            </div>
-            <div class="v-product-order span2">
-                <div class="v-product-price well">
-                    <div class="v-product-unit-price-total">
-                        {{ price( product, 'unitPriceTotal') }}
-                    </div>
+    <div class="col-md-7">
+        <div class="v-product-primary-media-item">
+            <a href="#" class="thumbnail">
+                {% set asset = assetManager().getAsset(product, 'product_main_detail')  %}
+                {% if asset is not null %}
+                    <img src="{{asset.uri }}"/>
+                {% else %}
+                    <img data-src="holder.js/100%x450" />
+                {% endif %}
 
-                    <span class="v-product-unit-price-msrp-total">
-                    {{ price( product,'unitPriceMSRPTotal')}}
-                    </span>
-                    <div class="v-product-msrp-discount-rate">
-                        Save {{ price( product, 'MSRPDiscountRate') }}%
-                    </div>
-                    <div style="clear: both; margin-top:2em;">
-                        <a class="btn btn-primary" href="{{ path('v_cart_add_product', {'productId': product.id}) }}">Add to Cart</a>
-                    </div>
-                </div>
+            </a>
+            {#<ul class="thumbnails">#}
+                {#<li class="span8">#}
+                    {#<div class="thumbnail">#}
+                        {#{% set asset = assetManager().getAsset(product, 'product_main_detail')  %}#}
+                        {#{% if asset is not null %}#}
+                        {#<img src="{{asset.uri }}"/>#}
+                        {#{%  endif %}#}
+                    {#</div>#}
+                {#</li>#}
+            {#{% for asset in assetManager().getAssets(product, 'secondary_detail') %}#}
+                {#<li class="span2">#}
+                    {#<div class="thumbnail">#}
+                        {#<img src="{{ asset( asset.filename) }}"#}
+                    {#</div>#}
+                {#</li>#}
+            {#{% endfor %}#}
+            {#</ul>#}
+        </div>
+    </div>
+    <div class="v-product-order col-md-4">
+        <div class="v-product-price well">
+            <p class="v-product-unit-price-total">{{ price( product, 'unitPriceTotal') }}</p>
 
-                <span class ="v-product-description">
-                    {{ product.description }}
-                </span>
+            <p class="v-product-unit-price-msrp-total">{{ price( product,'unitPriceMSRPTotal')}}</p>
+
+            <p class="v-product-msrp-discount-rate">Save {{ price( product, 'MSRPDiscountRate') }}%</p>
+
+            <div>
+                <a class="btn btn-primary" href="{{ path('v_cart_add_product', {'productId': product.id}) }}">Add to Cart</a>
             </div>
         </div>
+
+        <span class ="v-product-description">
+            {{ product.description }}
+        </span>
     </div>
 </div>
 {% endblock %}
