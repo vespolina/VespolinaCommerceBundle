@@ -13,12 +13,14 @@
                                 {{ product.name }}
                             </a>
                         </h4>
-                        <p>
-                            <a class="btn btn-primary" href="{{ path('v_cart_add_product', {'productId': product.id}) }}">Add to Cart</a>
-                            <span class="v-product-price">
-                                {% include 'VespolinaCommerceBundle:Default:_product_prices.html.twig' with {'product': product } %}
-                            </span>
+                        <p class="v-product-price">
+                            {% include 'VespolinaCommerceBundle:Default:_product_prices.html.twig' with {'product': product } %}
                         </p>
+                        <div class="v-product-description">
+                            <p>
+                                <a class="btn btn-primary" href="{{ path('v_cart_add_product', {'productId': product.id}) }}">Add to Cart</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
