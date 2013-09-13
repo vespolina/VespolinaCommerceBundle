@@ -8,18 +8,32 @@
                         {% include 'VespolinaCommerceBundle:Default:_product_primary_media.html.twig' with {'product': product } %}
                     </a>
                     <div class="caption">
-                        <h4 class="v-product-name">
+                        <span class="v-product-name">
                             <a href="{{ path('v_product_detail', { 'slug': product.slug }) }}">
                                 {{ product.name }}
                             </a>
-                        </h4>
-                        <p class="v-product-price">
-                            {% include 'VespolinaCommerceBundle:Default:_product_prices.html.twig' with {'product': product } %}
-                        </p>
-                        <div class="v-product-description">
-                            <p>
-                                <a class="btn btn-primary" href="{{ path('v_cart_add_product', {'productId': product.id}) }}">Add to Cart</a>
-                            </p>
+                        </span>
+                        <span class="v-product-prices">
+                           <div class="v-product-unit-price-total">
+                           {{ price(product, 'unitPriceTotal') }}
+                           </div>
+
+                        </span>
+                       <div class="v-product-brief-description">
+                           Brief description about this cool product
+                       </div>
+
+                        <div class="v-product-box">
+                            <div class="v-product-box-quick-details">
+                                Additional product detail, such as size of the goods
+                            </div>
+                            <div class="v-product-box-actions">
+                              <a class="btn btn-primary" href="{{ path('v_cart_add_product', {'productId': product.id}) }}">Add to Cart</a>
+                                <!--
+                                <div class="v-product-unit-price-msrp-total">
+                                    Was {{ price(product, 'unitPriceMSRPTotal') }}, you save {{ price(product, 'MSRPDiscountRate', '%') }}
+                                </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
