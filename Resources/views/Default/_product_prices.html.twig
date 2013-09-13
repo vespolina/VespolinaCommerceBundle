@@ -4,13 +4,11 @@
 {#
 {% set discount_rate = ( product_pricing['unitPriceTotal'] - product_pricing['unitPriceMSRPTotal'] ) / product_pricing['unitPriceTotal'] %}
 #}
+<!--
 <span class="v-product-msrp-discount-rate">
     Save {{ price(product, 'MSRPDiscountRate', '%') }}
 </span>
-
-<span class="v-product-unit-price-msrp-total">
-{{ price(product, 'unitPriceMSRPTotal') }}
-</span>
+-->
 
 <span class="v-product-unit-price-total">
 {{ price(product, 'unitPriceTotal') }}
