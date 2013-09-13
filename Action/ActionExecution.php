@@ -9,21 +9,7 @@
 
 namespace Vespolina\CommerceBundle\Action;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
-use Vespolina\Action\Execution\ExecutionInterface;
-use Vespolina\Entity\Action\ActionInterface;
-use Vespolina\Entity\Action\Action;
-
-/**
- * Base action execution class to integrate the Symfony2 DIC container
- *
- * @author Daniel Kucharski <daniel@xerias.be>
- */
-abstract class ActionExecution extends ContainerAware implements ExecutionInterface
+class ActionExecution
 {
 
-    protected function complete(ActionInterface $action)
-    {
-        $action->setState(Action::STATE_COMPLETED);
-    }
 }
