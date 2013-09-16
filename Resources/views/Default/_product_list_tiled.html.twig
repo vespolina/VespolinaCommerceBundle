@@ -20,12 +20,12 @@
 
                         </span>
                        <div class="v-product-brief-description">
-                           Brief description about this cool product
+                           {{ product.getDescription('brief') }}
                        </div>
 
                         <div class="v-product-box">
                             <div class="v-product-box-quick-details">
-                                Additional product detail, such as size of the goods
+                                {{ product.getDescription('extended') }}
                             </div>
                             <div class="v-product-box-actions">
                               <a class="btn btn-primary" href="{{ path('v_cart_add_product', {'productId': product.id}) }}">Add to Cart</a>
