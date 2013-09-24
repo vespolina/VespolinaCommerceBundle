@@ -21,7 +21,7 @@ class ExecutePaymentController extends AbstractProcessStepController
         $processManager = $this->container->get('vespolina.process_manager');
         $request = $this->container->get('request');
         $paymentForm = $this->createPaymentForm();
-        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_express');
+        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro');
         var_dump($paymentGateway); die;
         if ($this->isPostForForm($request, $paymentForm)) {
 

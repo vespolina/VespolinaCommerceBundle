@@ -261,7 +261,8 @@ class VespolinaCommerceExtension extends Extension
     protected function configurePaymentGateways(array $config, ContainerBuilder $container)
     {
         foreach ($config as $name => $params) {
-            $className = trim(Helper::getGatewayClassName($name), "\\");
+            $className = $params['class'];
+            unset($params['class']);
             $definition = new Definition($className, array($name));
             foreach ($params as $key => $value) {
                 $definition->addMethodCall('set'.strtoupper($key), array($value));
