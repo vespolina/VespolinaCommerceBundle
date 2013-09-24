@@ -17,7 +17,7 @@
 
 
 
-<form name="execute_payment" action="{{ path('v_checkout_process_step', { 'processId': currentProcessStep.process.id, 'processStepName': currentProcessStep.name })}}" method="post" {{ form_enctype(paymentForm) }}>
+<form role="form" name="execute_payment" action="{{ path('v_checkout_process_step', { 'processId': currentProcessStep.process.id, 'processStepName': currentProcessStep.name })}}" method="post" {{ form_enctype(paymentForm) }}>
     {{ form_widget(paymentForm) }}
     <input type="submit" class="btn" id="submit" value="confirm" />
 </form>
