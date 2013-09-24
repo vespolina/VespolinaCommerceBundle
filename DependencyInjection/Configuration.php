@@ -43,6 +43,7 @@ class Configuration implements ConfigurationInterface
         $this->addMerchandiseSection($rootNode);
         $this->addPartnerSection($rootNode);
         $this->addFulfillmentMethodsSection($rootNode);
+        $this->addPaymentGateways($rootNode);
 
         return $treeBuilder;
     }
@@ -228,6 +229,26 @@ class Configuration implements ConfigurationInterface
                         ->children()
                         ->scalarNode('class')->end()
                         ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addPaymentGateways(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('payment_gateway')
+                    ->children()
+                        ->arrayNode('PayPal_Express')
+                            ->children()
+                                ->scalarNode('driver')->end()
+                                ->scalarNode('host')->end()
+                                ->scalarNode('username')->end()
+                                ->scalarNode('password')->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()

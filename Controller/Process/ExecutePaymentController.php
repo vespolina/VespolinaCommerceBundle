@@ -12,6 +12,7 @@ namespace Vespolina\CommerceBundle\Controller\Process;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Vespolina\CommerceBundle\Form\Type\Process\PaymentFormType;
+use Omnipay\Common\GatewayFactory;
 
 class ExecutePaymentController extends AbstractProcessStepController
 {
@@ -37,12 +38,13 @@ class ExecutePaymentController extends AbstractProcessStepController
             } else {
             }
         } else {
-
             return $this->render('VespolinaCommerceBundle:Process:Step/executePayment.html.twig',
                 array(
                     'context' => $this->processStep->getContext(),
                     'currentProcessStep' => $this->processStep,
-                    'paymentForm' => $paymentForm->createView()));
+                    'paymentForm' => $paymentForm->createView()
+                )
+            );
         }
     }
 

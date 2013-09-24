@@ -92,6 +92,10 @@ class VespolinaCommerceExtension extends Extension
         if (isset($config['classMapping']) && is_array($config['classMapping'])) {
             $this->configureEntityClassMapping($container, $config['classMapping']);
         }
+
+        if (isset($config['payment_gateway'])) {
+            var_dump($config['payment_gateway']);
+        }
     }
 
     protected function configureIdentifierSet(array $config, ContainerBuilder $container)
