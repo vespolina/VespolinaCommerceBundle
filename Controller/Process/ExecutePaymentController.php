@@ -9,10 +9,11 @@
 
 namespace Vespolina\CommerceBundle\Controller\Process;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Vespolina\CommerceBundle\Form\Type\Process\PaymentFormType;
-use Omnipay\Common\GatewayFactory;
+use Vespolina\Entity\Payment\PaymentProfile\CreditCard;
+//use Omnipay\Common\CreditCard;
+use Vespolina\CommerceBundle\Form\Type\Cart\CreditCardFormType;
 
 class ExecutePaymentController extends AbstractProcessStepController
 {
@@ -22,23 +23,24 @@ class ExecutePaymentController extends AbstractProcessStepController
         $request = $this->container->get('request');
         $paymentForm = $this->createPaymentForm();
         $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro');
-        var_dump($paymentGateway); die;
-        if ($this->isPostForForm($request, $paymentForm)) {
-
-            $paymentForm->bindRequest($request);
-
-            if ($paymentForm->isValid()) {
-
-                $process = $this->processStep->getProcess();
-
-                //Signal enclosing process step that we are done here
-                $process->completeProcessStep($this->processStep);
-                $processManager->updateProcess($process);
-
-                return $process->execute();
-            } else {
-            }
-        } else {
+//        $response = $paymentGateway->purchase(array('amount' => 10))->send();
+//        var_dump($response); die;
+//        if ($this->isPostForForm($request, $paymentForm)) {
+//
+//            $paymentForm->bindRequest($request);
+//
+//            if ($paymentForm->isValid()) {
+//
+//                $process = $this->processStep->getProcess();
+//
+//                //Signal enclosing process step that we are done here
+//                $process->completeProcessStep($this->processStep);
+//                $processManager->updateProcess($process);
+//
+//                return $process->execute();
+//            } else {
+//            }
+//        } else {
             return $this->render('VespolinaCommerceBundle:Process:Step/executePayment.html.twig',
                 array(
                     'context' => $this->processStep->getContext(),
@@ -46,12 +48,12 @@ class ExecutePaymentController extends AbstractProcessStepController
                     'paymentForm' => $paymentForm->createView()
                 )
             );
-        }
+//        }
     }
 
     protected function createPaymentForm()
     {
-        $paymentForm = $this->container->get('form.factory')->create(new PaymentFormType(), null, array());
+        $paymentForm = $this->container->get('form.factory')->create(new CreditCardFormType(), new CreditCard(), array());
 
         return $paymentForm;
     }
