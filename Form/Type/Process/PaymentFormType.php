@@ -19,13 +19,9 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class PaymentFormType extends AbstractType
 {
-    public function __construct()
-    {
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
+        $builder->add('number', 'text');
     }
 
     public function getName()

@@ -11,9 +11,9 @@
 
 {% render "VespolinaCommerceBundle:Process/Process:processNavigator" with {'currentProcessStep': currentProcessStep } %}
 
-<div id="payment_frame">
-Starting Payment...
-</div>
+{#<div id="payment_frame">#}
+{#Starting Payment...#}
+{#</div>#}
 
 
 
@@ -22,16 +22,16 @@ Starting Payment...
     <input type="submit" class="btn" id="submit" value="confirm" />
 </form>
 
-<script type="text/javascript">
-    //Simulate payment
-    setTimeout(function(){
-        document.getElementById('payment_frame').innerHTML = "<b>Payment succesful!</b>";
-        setTimeout(function(){
-            document.forms["execute_payment"].submit();
-        }, 1000);
+{#<script type="text/javascript">#}
+    {#//Simulate payment#}
+    {#setTimeout(function(){#}
+        {#document.getElementById('payment_frame').innerHTML = "<b>Payment succesful!</b>";#}
+        {#setTimeout(function(){#}
+            {#document.forms["execute_payment"].submit();#}
+        {#}, 1000);#}
 
-    }, 1000);
-</script>
+    {#}, 1000);#}
+{#</script>#}
 
 {% endblock %}
 
