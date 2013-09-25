@@ -21,11 +21,12 @@ class PaymentFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('number', 'text', array(
-//            'attr' => array(
-//                'class' => 'form-control'
-//            )
-        ));
+        $builder
+            ->add('number', 'text', array(
+                'label' => 'Card Number'
+            )
+//            ->add()
+        );
     }
 
     public function getName()

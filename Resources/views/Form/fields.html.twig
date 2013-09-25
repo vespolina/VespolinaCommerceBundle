@@ -16,3 +16,18 @@
         </div>
     {% endspaceless %}
 {% endblock form_row %}
+
+{% block choice_widget_expanded %}
+    {% spaceless %}
+        <div {{ block('widget_container_attributes') }}>
+            {% for child in form %}
+                <div>
+                    <label>
+                        {{ form_widget(child) }}
+                        {{ child.vars.label }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+    {% endspaceless %}
+{% endblock choice_widget_expanded %}

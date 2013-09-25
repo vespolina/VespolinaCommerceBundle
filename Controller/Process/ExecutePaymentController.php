@@ -29,11 +29,11 @@ class ExecutePaymentController extends AbstractProcessStepController
             $creditCard = $paymentForm->getData();
             try {
                 $creditCard->validate();
-                $process = $this->processStep->getProcess();
-                //Signal enclosing process step that we are done here
-                $process->completeProcessStep($this->processStep);
-                $processManager->updateProcess($process);
-                return $process->execute();
+//                $process = $this->processStep->getProcess();
+//                //Signal enclosing process step that we are done here
+//                $process->completeProcessStep($this->processStep);
+//                $processManager->updateProcess($process);
+//                return $process->execute();
             } catch(InvalidCreditCardException $e) {
                 $this->container->get('session')->getFlashBag()->add(
                     'danger',
@@ -57,7 +57,13 @@ class ExecutePaymentController extends AbstractProcessStepController
      */
     protected function createPaymentForm()
     {
-        $paymentForm = $this->container->get('form.factory')->create(new PaymentFormType(), new CreditCard(), array());
+        $creditCard = new CreditCard();
+        $creditCard
+            ->setExpiryYear(2014)
+            ->setExpiryMonth(13)
+            ->setNumber(4603810699102880)
+        ;
+        $paymentForm = $this->container->get('form.factory')->create(new PaymentFormType(), $creditCard, array());
 
         return $paymentForm;
     }
