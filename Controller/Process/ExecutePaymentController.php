@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Vespolina\CommerceBundle\Form\Type\Process\PaymentFormType;
 use Omnipay\Common\CreditCard;
 use Omnipay\Common\Exception\InvalidCreditCardException;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ExecutePaymentController extends AbstractProcessStepController
 {
@@ -22,7 +21,7 @@ class ExecutePaymentController extends AbstractProcessStepController
         $processManager = $this->container->get('vespolina.process_manager');
         $request = $this->container->get('request');
         $paymentForm = $this->createPaymentForm();
-        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro'); //var_dump($paymentGateway); die;
+        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro');
         if ($this->isPostForForm($request, $paymentForm)) {
             $paymentForm->bind($request);
             /** @var CreditCard $creditCard */
@@ -32,24 +31,20 @@ class ExecutePaymentController extends AbstractProcessStepController
             // the Symfony2 validation component
             try {
                 $creditCard->validate();
-                $response = $paymentGateway->purchase(array('amount' => '10.00', 'card' => $creditCard))->send(); var_dump($response);
+                $response = $paymentGateway->purchase(array('amount' => '10.00', 'card' => $creditCard))->send();
                 if ($response->isSuccessful()) {
-//                $process = $this->processStep->getProcess();
-//                //Signal enclosing process step that we are done here
-//                $process->completeProcessStep($this->processStep);
-//                $processManager->updateProcess($process);
-//                return $process->execute();
+                    $process = $this->processStep->getProcess();
+                    //Signal enclosing process step that we are done here
+                    $process->completeProcessStep($this->processStep);
+                    $processManager->updateProcess($process);
+                    $this->container->get('session')->getFlashBag()->add('success', 'The transaction was successful.');
+
+                    return $process->execute();
                 } else {
-                    $this->container->get('session')->getFlashBag()->add(
-                        'danger',
-                        $response->getMessage()
-                    );
+                    $this->container->get('session')->getFlashBag()->add('danger', $response->getMessage());
                 }
             } catch(InvalidCreditCardException $e) {
-                $this->container->get('session')->getFlashBag()->add(
-                    'danger',
-                    $e->getMessage()
-                );
+                $this->container->get('session')->getFlashBag()->add('danger', $e->getMessage());
             }
         }
 

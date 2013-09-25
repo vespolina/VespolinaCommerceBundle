@@ -33,7 +33,6 @@ class PaymentFormType extends AbstractType
                 'choices' => array_combine(range(date('Y'), date('Y', strtotime('+5 year'))), range(date('Y'), date('Y', strtotime('+5 year')))),
                 'label' => 'Expiry Month'
             ))
-            //->add('')
         ;
     }
 
