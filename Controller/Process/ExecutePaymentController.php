@@ -22,13 +22,14 @@ class ExecutePaymentController extends AbstractProcessStepController
         $processManager = $this->container->get('vespolina.process_manager');
         $request = $this->container->get('request');
         $paymentForm = $this->createPaymentForm();
-        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro');
+        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro'); var_dump($paymentGateway); die;
         if ($this->isPostForForm($request, $paymentForm)) {
             $paymentForm->bind($request);
             /** @var CreditCard $creditCard */
             $creditCard = $paymentForm->getData(); //var_dump($creditCard); die;
             try {
                 $creditCard->validate();
+                //$request = $paymentGateway
 //                $process = $this->processStep->getProcess();
 //                //Signal enclosing process step that we are done here
 //                $process->completeProcessStep($this->processStep);

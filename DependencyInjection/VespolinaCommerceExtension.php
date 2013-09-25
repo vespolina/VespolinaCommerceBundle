@@ -264,9 +264,7 @@ class VespolinaCommerceExtension extends Extension
             $className = $params['class'];
             unset($params['class']);
             $definition = new Definition($className, array($name));
-            foreach ($params as $key => $value) {
-                $definition->addMethodCall('set'.strtoupper($key), array($value));
-            }
+            $definition->addMethodCall('initialize', array($params));
             $container->setDefinition('vespolina_commerce.payment_gateway.'.strtolower($name), $definition)
                 ->setFactoryClass('Omnipay\Common\GatewayFactory')
                 ->setFactoryMethod('create')
