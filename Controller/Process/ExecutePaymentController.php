@@ -22,19 +22,29 @@ class ExecutePaymentController extends AbstractProcessStepController
         $processManager = $this->container->get('vespolina.process_manager');
         $request = $this->container->get('request');
         $paymentForm = $this->createPaymentForm();
-        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro'); var_dump($paymentGateway); die;
+        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro'); //var_dump($paymentGateway); die;
         if ($this->isPostForForm($request, $paymentForm)) {
             $paymentForm->bind($request);
             /** @var CreditCard $creditCard */
-            $creditCard = $paymentForm->getData(); //var_dump($creditCard); die;
+            $creditCard = $paymentForm->getData();
+            // For now use Omnipay\Common\CreditCard's native validate()
+            // method but validation should be moved to a yml file using
+            // the Symfony2 validation component
             try {
                 $creditCard->validate();
-                //$request = $paymentGateway
+                $response = $paymentGateway->purchase(array('amount' => '10.00', 'card' => $creditCard))->send(); var_dump($response);
+                if ($response->isSuccessful()) {
 //                $process = $this->processStep->getProcess();
 //                //Signal enclosing process step that we are done here
 //                $process->completeProcessStep($this->processStep);
 //                $processManager->updateProcess($process);
 //                return $process->execute();
+                } else {
+                    $this->container->get('session')->getFlashBag()->add(
+                        'danger',
+                        $response->getMessage()
+                    );
+                }
             } catch(InvalidCreditCardException $e) {
                 $this->container->get('session')->getFlashBag()->add(
                     'danger',
@@ -59,11 +69,6 @@ class ExecutePaymentController extends AbstractProcessStepController
     protected function createPaymentForm()
     {
         $creditCard = new CreditCard();
-//        $creditCard
-//            ->setExpiryYear(2014)
-//            ->setExpiryMonth(16)
-//            ->setNumber(4603810699102880)
-//        ;
         $paymentForm = $this->container->get('form.factory')->create(new PaymentFormType(), $creditCard, array());
 
         return $paymentForm;
