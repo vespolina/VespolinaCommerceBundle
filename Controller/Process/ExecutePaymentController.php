@@ -26,7 +26,7 @@ class ExecutePaymentController extends AbstractProcessStepController
         if ($this->isPostForForm($request, $paymentForm)) {
             $paymentForm->bind($request);
             /** @var CreditCard $creditCard */
-            $creditCard = $paymentForm->getData();
+            $creditCard = $paymentForm->getData(); //var_dump($creditCard); die;
             try {
                 $creditCard->validate();
 //                $process = $this->processStep->getProcess();
@@ -58,11 +58,11 @@ class ExecutePaymentController extends AbstractProcessStepController
     protected function createPaymentForm()
     {
         $creditCard = new CreditCard();
-        $creditCard
-            ->setExpiryYear(2014)
-            ->setExpiryMonth(13)
-            ->setNumber(4603810699102880)
-        ;
+//        $creditCard
+//            ->setExpiryYear(2014)
+//            ->setExpiryMonth(16)
+//            ->setNumber(4603810699102880)
+//        ;
         $paymentForm = $this->container->get('form.factory')->create(new PaymentFormType(), $creditCard, array());
 
         return $paymentForm;

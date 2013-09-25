@@ -24,9 +24,16 @@ class PaymentFormType extends AbstractType
         $builder
             ->add('number', 'text', array(
                 'label' => 'Card Number'
-            )
-//            ->add()
-        );
+            ))
+            ->add('expiryMonth', 'choice', array(
+                'choices' => array_combine(range(1, 12), range(1, 12)),
+                'label' => 'Expiry Year'
+            ))
+            ->add('expiryYear', 'choice', array(
+                'choices' => array_combine(range(date('Y'), date('Y', strtotime('+5 year'))), range(date('Y'), date('Y', strtotime('+5 year')))),
+                'label' => 'Expiry Month'
+            ))
+        ;
     }
 
     public function getName()
