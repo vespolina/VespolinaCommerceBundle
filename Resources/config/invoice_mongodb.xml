@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="vespolina_commerce.invoice_manager.class">Vespolina\Invoice\Manager\InvoiceManager</parameter>
+        <parameter key="vespolina_commerce.entity.invoice.class">Vespolina\Entity\Invoice\Invoice</parameter>
+        <parameter key="vespolina_commerce.entity.item.class">Vespolina\Entity\Invoice\Item</parameter>
+        <parameter key="vespolina_commerce.entity.events.class">Vespolina\Entity\Invoice\InvoiceEvents</parameter>
+        <parameter key="vespolina_commerce.config.auto_persist">false</parameter>
+        <parameter key="vespolina_commerce.invoice_pricing_provider.class">Vespolina\Invoice\Pricing\DefaultInvoicePricingProvider</parameter>
+    </parameters>
+
+    <services>
+        <service id="vespolina_commerce.invoice_gateway" class="Vespolina\Invoice\Gateway\InvoiceGateway">
+            <argument type="service" id="vespolina.molino"/>
+            <argument>%vespolina_commerce.entity.invoice.class%</argument>
+        </service>
+
+        <service id="vespolina_commerce.invoice_manager" class="%vespolina_commerce.invoice_manager.class%">
+            <argument type="service" id="vespolina_commerce.invoice_gateway"/>
+            <argument type="collection">
+                <argument key="itemClass">%vespolina_commerce.entity.item.class%</argument>
+                <argument key="invoiceClass">%vespolina_commerce.entity.invoice.class%</argument>
+                <argument key="eventsClass">%vespolina_commerce.entity.events.class%</argument>
+            </argument>
+            <argument type="collection">
+                <argument key="pricingManager" type="service" id="vespolina_commerce.pricing_manager" />
+            </argument>
+            <argument type="service" id="vespolina.event_dispatcher"/>
+            <argument key="autoPersist">%vespolina_commerce.config.auto_persist%</argument>
+        </service>
+        <service id="vespolina.invoice_manager" alias="vespolina_commerce.invoice_manager"/>
+        <service id="vespolina_commerce.invoice_pricing_provider" class="%vespolina_commerce.invoice_pricing_provider.class%">
+        </service>
+    </services>
+</container>
