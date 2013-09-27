@@ -55,7 +55,7 @@ class VespolinaCommerceExtension extends Extension
             'product_options.xml',
             'product_form.xml',
             'order.xml',
-            'order_rest.xml'
+            'order_rest.xml',
             'twig.xml',
             'action.xml'
         );
