@@ -42,10 +42,12 @@ class VespolinaCommerceExtension extends Extension
             sprintf('product_%s.xml', $dbDriver),
             sprintf('partner_%s.xml', $dbDriver),
             sprintf('taxonomy_%s.xml', $dbDriver),
+            sprintf('action_%s.xml', $dbDriver),
             //Generic configurations
             'commerce.xml',
             'fulfillment.xml',
             'partner.xml',
+            'partner_validation.xml',
             'process.xml',
             'pricing.xml',
             'product_identifiers.xml',
@@ -53,7 +55,9 @@ class VespolinaCommerceExtension extends Extension
             'product_options.xml',
             'product_form.xml',
             'order.xml',
-            'twig.xml'
+            'order_rest.xml'
+            'twig.xml',
+            'action.xml'
         );
 
         foreach ($configurationFiles as $configurationFile) {
