@@ -9,9 +9,10 @@
 
 namespace Vespolina\CommerceBundle\Controller\Process;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Vespolina\CommerceBundle\Form\Type\Process\PaymentFormType;
+use Omnipay\Common\CreditCard;
+use Omnipay\Common\Exception\InvalidCreditCardException;
 
 class ExecutePaymentController extends AbstractProcessStepController
 {
@@ -20,35 +21,50 @@ class ExecutePaymentController extends AbstractProcessStepController
         $processManager = $this->container->get('vespolina.process_manager');
         $request = $this->container->get('request');
         $paymentForm = $this->createPaymentForm();
-
+        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro');
         if ($this->isPostForForm($request, $paymentForm)) {
+            $paymentForm->bind($request);
+            /** @var CreditCard $creditCard */
+            $creditCard = $paymentForm->getData();
+            // For now use Omnipay\Common\CreditCard's native validate()
+            // method but validation should be moved to a yml file using
+            // the Symfony2 validation component
+            try {
+                $creditCard->validate();
+                $response = $paymentGateway->purchase(array('amount' => '10.00', 'card' => $creditCard))->send();
+                if ($response->isSuccessful()) {
+                    $process = $this->processStep->getProcess();
+                    //Signal enclosing process step that we are done here
+                    $process->completeProcessStep($this->processStep);
+                    $processManager->updateProcess($process);
+                    $this->container->get('session')->getFlashBag()->add('success', 'The transaction was successful.');
 
-            $paymentForm->bindRequest($request);
-
-            if ($paymentForm->isValid()) {
-
-                $process = $this->processStep->getProcess();
-
-                //Signal enclosing process step that we are done here
-                $process->completeProcessStep($this->processStep);
-                $processManager->updateProcess($process);
-
-                return $process->execute();
-            } else {
+                    return $process->execute();
+                } else {
+                    $this->container->get('session')->getFlashBag()->add('danger', $response->getMessage());
+                }
+            } catch(InvalidCreditCardException $e) {
+                $this->container->get('session')->getFlashBag()->add('danger', $e->getMessage());
             }
-        } else {
-
-            return $this->render('VespolinaCommerceBundle:Process:Step/executePayment.html.twig',
-                array(
-                    'context' => $this->processStep->getContext(),
-                    'currentProcessStep' => $this->processStep,
-                    'paymentForm' => $paymentForm->createView()));
         }
+
+        return $this->render('VespolinaCommerceBundle:Process:Step/executePayment.html.twig',
+            array(
+                'context' => $this->processStep->getContext(),
+                'currentProcessStep' => $this->processStep,
+                'paymentForm' => $paymentForm->createView()
+            )
+        );
     }
 
+
+    /**
+     * @return \Symfony\Component\Form\Form
+     */
     protected function createPaymentForm()
     {
-        $paymentForm = $this->container->get('form.factory')->create(new PaymentFormType(), null, array());
+        $creditCard = new CreditCard();
+        $paymentForm = $this->container->get('form.factory')->create(new PaymentFormType(), $creditCard, array());
 
         return $paymentForm;
     }

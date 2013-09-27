@@ -10,11 +10,13 @@
 namespace Vespolina\CommerceBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Vespolina\Exception\InvalidConfigurationException;
+use Omnipay\Common\Helper;
 
 /**
  * @author Richard D Shank <develop@zestic.com>
@@ -93,6 +95,10 @@ class VespolinaCommerceExtension extends Extension
 
         if (isset($config['classMapping']) && is_array($config['classMapping'])) {
             $this->configureEntityClassMapping($container, $config['classMapping']);
+        }
+
+        if (isset($config['payment_gateways'])) {
+            $this->configurePaymentGateways($config['payment_gateways'], $container);
         }
     }
 
@@ -252,5 +258,19 @@ class VespolinaCommerceExtension extends Extension
     protected function configureFulfillmentMethods(array $config, ContainerBuilder $container)
     {
         $container->setParameter('vespolina_commerce.fulfillment_method_resolver.configuration', $config);
+    }
+
+    protected function configurePaymentGateways(array $config, ContainerBuilder $container)
+    {
+        foreach ($config as $name => $params) {
+            $className = $params['class'];
+            unset($params['class']);
+            $definition = new Definition($className, array($name));
+            $definition->addMethodCall('initialize', array($params));
+            $container->setDefinition('vespolina_commerce.payment_gateway.'.strtolower($name), $definition)
+                ->setFactoryClass('Omnipay\Common\GatewayFactory')
+                ->setFactoryMethod('create')
+            ;
+        }
     }
 }

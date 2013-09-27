@@ -43,6 +43,7 @@ class Configuration implements ConfigurationInterface
         $this->addMerchandiseSection($rootNode);
         $this->addPartnerSection($rootNode);
         $this->addFulfillmentMethodsSection($rootNode);
+        $this->addPaymentGateways($rootNode);
 
         return $treeBuilder;
     }
@@ -228,6 +229,36 @@ class Configuration implements ConfigurationInterface
                         ->children()
                         ->scalarNode('class')->end()
                         ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addPaymentGateways(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('payment_gateways')
+                    ->children()
+                        ->arrayNode('PayPal_Express')
+                            ->children()
+                                ->scalarNode('class')->defaultValue('Omnipay\PayPal\ExpressGateway')->end()
+                                ->scalarNode('username')->isRequired()->end()
+                                ->scalarNode('password')->isRequired()->end()
+                                ->scalarNode('signature')->isRequired()->end()
+                                ->scalarNode('testMode')->defaultValue(false)->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('PayPal_Pro')
+                            ->children()
+                                ->scalarNode('class')->defaultValue('Omnipay\PayPal\ProGateway')->end()
+                                ->scalarNode('username')->isRequired()->end()
+                                ->scalarNode('password')->isRequired()->end()
+                                ->scalarNode('signature')->isRequired()->end()
+                                ->scalarNode('testMode')->defaultValue(false)->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()

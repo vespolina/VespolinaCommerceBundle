@@ -19,13 +19,21 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class PaymentFormType extends AbstractType
 {
-    public function __construct()
-    {
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
+        $builder
+            ->add('number', 'text', array(
+                'label' => 'Card Number'
+            ))
+            ->add('expiryMonth', 'choice', array(
+                'choices' => array_combine(range(1, 12), range(1, 12)),
+                'label' => 'Expiry Year'
+            ))
+            ->add('expiryYear', 'choice', array(
+                'choices' => array_combine(range(date('Y'), date('Y', strtotime('+5 year'))), range(date('Y'), date('Y', strtotime('+5 year')))),
+                'label' => 'Expiry Month'
+            ))
+        ;
     }
 
     public function getName()

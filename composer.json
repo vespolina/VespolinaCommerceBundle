@@ -14,7 +14,8 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": ">=2.1",
-        "vespolina/action": "dev-master",
+        "omnipay/omnipay": "dev-master",
+        "vespolina/action": "*",
         "vespolina/commerce": "dev-master",
         "vespolina/taxonomy": "dev-master",
         "friendsofsymfony/rest-bundle": "*"

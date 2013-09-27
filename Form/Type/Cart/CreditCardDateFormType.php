@@ -7,10 +7,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\CommonBundle\Form\Type\Cart;
+namespace Vespolina\CommerceBundle\Form\Type\Cart;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 
@@ -22,7 +22,7 @@ class CreditCardDateFormType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('month', 'choice', array(
@@ -39,7 +39,7 @@ class CreditCardDateFormType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getParent(array $options)
+    public function getParent()
     {
         return 'field';
     }

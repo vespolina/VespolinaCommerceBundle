@@ -7,12 +7,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\CommonBundle\Form\Type\Cart;
+namespace Vespolina\CommerceBundle\Form\Type\Cart;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Vespolina\CommerceBundle\Form\Type\Cart\CreditCardDateFormType;
 
 /**
  * @author Richard Shank <develop@zestic.com>
@@ -22,7 +21,7 @@ class CreditCardFormType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('cardNumber', 'text', array(
@@ -35,24 +34,24 @@ class CreditCardFormType extends AbstractType
                     'onfocus' => "if(this.value!=cc)this.value=cc;",
                 ),
             ))
-            ->add('expiration', new CreditCardDateFormType(), array(
-                'required' => true,
-                'label' => 'Expiration Date',
-            ))
-            ->add('cvv', 'text', array(
-                'required' => false,
-                'label' => 'CVV',
-                'attr' => array(
-                    'size' => '4',
-                ),
-            ))
+//            ->add('expiration', new CreditCardDateFormType(), array(
+//                'required' => true,
+//                'label' => 'Expiration Date',
+//            ))
+//            ->add('cvv', 'text', array(
+//                'required' => false,
+//                'label' => 'CVV',
+//                'attr' => array(
+//                    'size' => '4',
+//                ),
+//            ))
         ;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent(array $options)
+    public function getParent()
     {
         return 'field';
     }

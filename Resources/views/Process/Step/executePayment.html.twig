@@ -1,37 +1,26 @@
 {% extends vespolina_layout_template %}
 
 {% block navigation %}
-<ul class="breadcrumb">
-    <li><a href="{{ path('v_store_home') }}">Home</a> <span class="divider">/</span></li>
-    <li>Checkout<span class="divider">/</span></li>
-</ul>
+    <ul class="breadcrumb">
+        <li><a href="{{ path('v_store_home') }}">Home</a></li>
+        <li>Checkout</li>
+    </ul>
 {% endblock %}
 
 {% block content %}
+    {% render "VespolinaCommerceBundle:Process/Process:processNavigator" with {'currentProcessStep': currentProcessStep } %}
 
-{% render "VespolinaCommerceBundle:Process/Process:processNavigator" with {'currentProcessStep': currentProcessStep } %}
-
-<div id="payment_frame">
-Starting Payment...
-</div>
-
-
-
-<form name="execute_payment" action="{{ path('v_checkout_process_step', { 'processId': currentProcessStep.process.id, 'processStepName': currentProcessStep.name })}}" method="post" {{ form_enctype(paymentForm) }}>
-    {{ form_widget(paymentForm) }}
-    <input type="submit" class="btn" id="submit" value="confirm" />
-</form>
-
-<script type="text/javascript">
-    //Simulate payment
-    setTimeout(function(){
-        document.getElementById('payment_frame').innerHTML = "<b>Payment succesful!</b>";
-        setTimeout(function(){
-            document.forms["execute_payment"].submit();
-        }, 1000);
-
-    }, 1000);
-</script>
-
+    <form role="form" name="execute_payment" action="{{ path('v_checkout_process_step', { 'processId': currentProcessStep.process.id, 'processStepName': currentProcessStep.name })}}" method="post" {{ form_enctype(paymentForm) }}>
+        {{ form_row(paymentForm.number) }}
+        <div class="row">
+            <div class="col-lg-4">
+                {{ form_row(paymentForm.expiryMonth) }}
+            </div>
+            <div class="col-lg-4">
+                {{ form_row(paymentForm.expiryYear) }}
+            </div>
+        </div>
+        <input type="submit" class="btn" id="submit" value="confirm" />
+    </form>
 {% endblock %}
 
