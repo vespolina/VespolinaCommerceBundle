@@ -14,6 +14,9 @@ namespace Vespolina\CommerceBundle\Process;
  */
 abstract class AbstractProcessStep implements ProcessStepInterface
 {
+    const STATE_COMPLETED = 'completed';
+    const STATE_INITIAL = 'initial';
+
     protected $displayName;
     protected $name;
     protected $state;
@@ -22,11 +25,12 @@ abstract class AbstractProcessStep implements ProcessStepInterface
     public function __construct(ProcessInterface $process)
     {
         $this->process = $process;
-        $this->state = 'initial';
+        $this->state = self::STATE_INITIAL;
     }
 
-    public function complete() {
-       $this->state = 'completed';
+    public function complete()
+    {
+       $this->state = self::STATE_COMPLETED;
     }
 
     public function getContext()
@@ -83,6 +87,6 @@ abstract class AbstractProcessStep implements ProcessStepInterface
 
     public function isCompleted()
     {
-        return $this->getState() == 'completed';
+        return $this->getState() == self::STATE_COMPLETED;
     }
 }
