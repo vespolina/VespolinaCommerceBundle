@@ -14,9 +14,10 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": ">=2.1",
-        "vespolina/action": "*",
+        "vespolina/action": "dev-master",
         "vespolina/commerce": "dev-master",
-        "vespolina/taxonomy": "dev-master"
+        "vespolina/taxonomy": "dev-master",
+        "friendsofsymfony/rest-bundle": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
