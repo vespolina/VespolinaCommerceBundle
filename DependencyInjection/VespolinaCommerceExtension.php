@@ -47,7 +47,6 @@ class VespolinaCommerceExtension extends Extension
             'commerce.xml',
             'fulfillment.xml',
             'partner.xml',
-            'partner_validation.xml',
             'process.xml',
             'pricing.xml',
             'product_identifiers.xml',

@@ -7,8 +7,8 @@
     <parameters>
         <parameter key="vespolina_commerce.invoice_manager.class">Vespolina\Invoice\Manager\InvoiceManager</parameter>
         <parameter key="vespolina_commerce.entity.invoice.class">Vespolina\Entity\Invoice\Invoice</parameter>
-        <parameter key="vespolina_commerce.entity.item.class">Vespolina\Entity\Invoice\Item</parameter>
-        <parameter key="vespolina_commerce.entity.events.class">Vespolina\Entity\Invoice\InvoiceEvents</parameter>
+        <parameter key="vespolina_commerce.entity.invoice_item.class">Vespolina\Entity\Invoice\Item</parameter>
+        <parameter key="vespolina_commerce.entity.invoice_events.class">Vespolina\Entity\Invoice\InvoiceEvents</parameter>
         <parameter key="vespolina_commerce.config.auto_persist">false</parameter>
         <parameter key="vespolina_commerce.invoice_pricing_provider.class">Vespolina\Invoice\Pricing\DefaultInvoicePricingProvider</parameter>
     </parameters>
@@ -22,9 +22,9 @@
         <service id="vespolina_commerce.invoice_manager" class="%vespolina_commerce.invoice_manager.class%">
             <argument type="service" id="vespolina_commerce.invoice_gateway"/>
             <argument type="collection">
-                <argument key="itemClass">%vespolina_commerce.entity.item.class%</argument>
+                <argument key="itemClass">%vespolina_commerce.entity.invoice_item.class%</argument>
                 <argument key="invoiceClass">%vespolina_commerce.entity.invoice.class%</argument>
-                <argument key="eventsClass">%vespolina_commerce.entity.events.class%</argument>
+                <argument key="eventsClass">%vespolina_commerce.entity.invoice_events.class%</argument>
             </argument>
             <argument type="collection">
                 <argument key="pricingManager" type="service" id="vespolina_commerce.pricing_manager" />
