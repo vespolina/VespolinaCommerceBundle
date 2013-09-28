@@ -21,13 +21,13 @@ class ProcessDefinition
 {
     protected $steps;
 
-    public function __construct() {
-
+    public function __construct()
+    {
         $this->steps = array();
     }
 
-    public function addProcessStep($name, $class, $state = '') {
-
+    public function addProcessStep($name, $class, $state = '')
+    {
         $config = array();
         $config['name'] = $name;
         $config['class'] = $class;
@@ -36,8 +36,8 @@ class ProcessDefinition
         $this->steps[] = $config;
     }
 
-    public function getInitialStep() {
-
+    public function getInitialStep()
+    {
         return $this->steps[0];
     }
 
@@ -52,8 +52,8 @@ class ProcessDefinition
        throw new \Exception('Could not find step configuration for "' . $name . '"' );
     }
 
-    public function getNextStepConfig($name) {
-
+    public function getNextStepConfig($name)
+    {
         $i = 0;
         foreach ($this->steps as $stepConfig) {
             if ($stepConfig['name'] == $name) {
@@ -66,8 +66,8 @@ class ProcessDefinition
         }
     }
 
-    public function getSteps() {
-
+    public function getSteps()
+    {
         return $this->steps;
     }
 }

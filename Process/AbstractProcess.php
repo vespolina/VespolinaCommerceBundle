@@ -43,7 +43,7 @@ abstract class AbstractProcess implements ProcessInterface
 
     public function init($firstTime = false)
     {
-        //Build the process model definition
+        // Build the process model definition
         $this->definition = $this->build();
 
         if ($firstTime) {
@@ -64,19 +64,18 @@ abstract class AbstractProcess implements ProcessInterface
         if ($currentProcessStep = $this->getCurrentProcessStep()) {
             $result =  $currentProcessStep->execute($this);
 
-            //Fire up the next step using recursion
+            // Fire up the next step using recursion
             if ($currentProcessStep->isCompleted())  {
 
-                //Signal the process that this process step has been completed
+                // Signal the process that this process step has been completed
                 $this->completeProcessStep($currentProcessStep);
 
                 return $this->execute();
             } else {
-                //We should have received a response
+                // We should have received a response
                 return $result;
             }
         } else {
-
             throw new \Exception('Could not find a process step to execute for state "' . $this->getState() . '"');
         }
     }
@@ -128,6 +127,7 @@ abstract class AbstractProcess implements ProcessInterface
             $step->init();
             $steps[] = $step;
         }
+
         return $steps;
     }
 
