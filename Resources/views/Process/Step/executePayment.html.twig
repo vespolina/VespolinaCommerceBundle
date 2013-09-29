@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    {% render "VespolinaCommerceBundle:Process/Process:processNavigator" with {'currentProcessStep': currentProcessStep } %}
+    {% render(controller('VespolinaCommerceBundle:Process/Process:processNavigator', {'currentProcessStep': currentProcessStep })) %}
 
     <form role="form" name="execute_payment" action="{{ path('v_checkout_process_step', { 'processId': currentProcessStep.process.id, 'processStepName': currentProcessStep.name })}}" method="post" {{ form_enctype(paymentForm) }}>
         {{ form_row(paymentForm.number) }}

@@ -36,7 +36,7 @@ class PersonalDetailsType extends AbstractType
             ->add('lastname')
         ;
     }
-    
+
     public function getDefaultOptions(array $options = array())
     {
         return array(
