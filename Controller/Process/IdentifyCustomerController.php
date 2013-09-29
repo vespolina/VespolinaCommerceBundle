@@ -37,7 +37,7 @@ class IdentifyCustomerController extends AbstractProcessStepController
 
         if ($this->isPostForForm($request, $customerQuickCreateForm)) {
 
-            $customerQuickCreateForm->bindRequest($request);
+            $customerQuickCreateForm->handleRequest($request);
             $customerAddressForm = $customerQuickCreateForm->get('address');
             $customerDetailsForm = $customerQuickCreateForm->get('personalDetails');
             $customerPrimaryContactForm = $customerQuickCreateForm->get('primaryContact');
@@ -80,7 +80,7 @@ class IdentifyCustomerController extends AbstractProcessStepController
 
         } else if ($this->isPostForForm($request, $customerLoginForm)) {
 
-            $customerLoginForm->bindRequest($request);
+            $customerLoginForm->handleRequest($request);
 
             if ($customerLoginForm->isValid()) {
 

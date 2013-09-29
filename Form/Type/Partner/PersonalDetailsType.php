@@ -11,6 +11,7 @@ namespace Vespolina\CommerceBundle\Form\Type\Partner;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PersonalDetailsType extends AbstractType
 {
@@ -37,10 +38,10 @@ class PersonalDetailsType extends AbstractType
         ;
     }
 
-    public function getDefaultOptions(array $options = array())
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'data_class' => $this->dataClass,
-        );
+        ));
     }
 }

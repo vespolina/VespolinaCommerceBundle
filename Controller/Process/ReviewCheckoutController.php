@@ -22,7 +22,7 @@ class ReviewCheckoutController extends AbstractProcessStepController
         $checkoutReviewForm = $this->createCheckoutReviewedForm();
         if ($this->isPostForForm($request, $checkoutReviewForm)) {
 
-            $checkoutReviewForm->bindRequest($request);
+            $checkoutReviewForm->handleRequest($request);
 
             if ($checkoutReviewForm->isValid()) {
 

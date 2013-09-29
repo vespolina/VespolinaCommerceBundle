@@ -22,7 +22,7 @@ class SelectPaymentMethodController extends AbstractProcessStepController
 
         if ($this->isPostForForm($request, $selectPaymentMethodForm)) {
 
-            $selectPaymentMethodForm->bindRequest($request);
+            $selectPaymentMethodForm->handleRequest($request);
 
             if ($selectPaymentMethodForm->isValid()) {
 
