@@ -22,7 +22,7 @@ class DetermineFulfillmentController extends AbstractProcessStepController
 
         if ($this->isPostForForm($request, $selectFulfillmentForm)) {
 
-            $selectFulfillmentForm->bindRequest($request);
+            $selectFulfillmentForm->handleRequest($request);
 
             if ($selectFulfillmentForm->isValid()) {
 
@@ -61,11 +61,11 @@ class DetermineFulfillmentController extends AbstractProcessStepController
         $fulfillmentMethodResolver = $this->container->get('vespolina_commerce.fulfillment_method_resolver');
         $cart = $this->processStep->getContext()->get('cart');
 
-        //Collect all products from the cart
+        // Collect all products from the cart
         $products = array();
         $fulfillmentChoices = array();
 
-        foreach($cart->getItems() as $cartItem) {
+        foreach ($cart->getItems() as $cartItem) {
             $products[] = $cartItem->getProduct();
         }
         $fulfillmentMethods = $fulfillmentMethodResolver->resolveFulfillmentMethods($products, null);

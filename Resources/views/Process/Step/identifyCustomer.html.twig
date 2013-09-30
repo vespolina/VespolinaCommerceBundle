@@ -9,7 +9,7 @@
 
 {% block content %}
 
-{% render "VespolinaCommerceBundle:Process/Process:processNavigator" with {'currentProcessStep': currentProcessStep } %}
+{% render(controller('VespolinaCommerceBundle:Process/Process:processNavigator', {'currentProcessStep': currentProcessStep })) %}
 
 <div class="row-fluid">
     <div class="span6">
