@@ -26,7 +26,7 @@ class CheckoutController extends AbstractController
         $checkoutProcess = $processManager->getActiveProcessByOwner('checkout_b2c', $processOwner);
         if (null == $checkoutProcess) {
             $checkoutProcess = $processManager->createProcess('checkout_b2c', $processOwner);
-            $checkoutProcess->init(true);   //initialize with first time set to true
+            $checkoutProcess->init(true);   // initialize with first time set to true
             $context = $checkoutProcess->getContext();
             $context['cart'] = $this->getCart();
         }
@@ -56,13 +56,15 @@ class CheckoutController extends AbstractController
 
         $processStep = $process->getProcessStepByName($processStepName);
 
-        //Assert that the current process step (according to the process) is the same as the step name
-        //passed on to the request
+        // Assert that the current process step (according to the process) is the same as the step name
+        // passed on to the request
         if ($processStep->getName() != $processStepName) {
             throw new \Exception(sprintf(
-                'Checkout failed - process step names differ : "%s" != "%s"',
-                $processStep->getName(),
-                $processStepName));
+                    'Checkout failed - process step names differ : "%s" != "%s"',
+                    $processStep->getName(),
+                    $processStepName
+                )
+            );
         }
 
         return $processStep->getProcess()->execute();

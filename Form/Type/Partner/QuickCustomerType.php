@@ -35,7 +35,7 @@ class QuickCustomerType extends AbstractType
             ->add('personalDetails', 'vespolina_commerce_personal_details')
             ->add('primaryContact', 'vespolina_commerce_simple_contact')
             ->add('address', 'vespolina_commerce_address', array(
-                'property_path'	=> false,
+                'mapped'	=> false,
             )
         );
     }
