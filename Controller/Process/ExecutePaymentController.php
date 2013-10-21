@@ -13,17 +13,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Vespolina\CommerceBundle\Form\Type\Process\PaymentFormType;
 use Omnipay\Common\CreditCard;
 use Omnipay\Common\Exception\InvalidCreditCardException;
+use Payum\Registry\RegistryInterface;
+use Payum\Bundle\PayumBundle\Security\TokenFactory;
 
 class ExecutePaymentController extends AbstractProcessStepController
 {
     public function executeAction()
     {
+        $paymentName = 'paypal_pro_checkout_via_omnipay';
         $processManager = $this->container->get('vespolina.process_manager');
         $request = $this->container->get('request');
         $paymentForm = $this->createPaymentForm();
-        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro');
+//        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro');
         if ($this->isPostForForm($request, $paymentForm)) {
-            $paymentForm->bind($request);
+            $paymentForm->handleRequest($request);
             /** @var CreditCard $creditCard */
             $creditCard = $paymentForm->getData();
             // For now use Omnipay\Common\CreditCard's native validate()
@@ -31,7 +34,27 @@ class ExecutePaymentController extends AbstractProcessStepController
             // the Symfony2 validation component
             try {
                 $creditCard->validate();
-                $response = $paymentGateway->purchase(array('amount' => '10.00', 'card' => $creditCard))->send();
+                $storage = $this->getPayum()->getStorageForClass(
+                    'Vespolina\DefaultStoreBundle\Document\OmnipayPaymentDetails',
+                    $paymentName
+                );
+                $paymentDetails = $storage->createModel();
+                $paymentDetails['amount'] = (float) 10;
+                $paymentDetails['card'] = $creditCard;
+                $storage->updateModel($paymentDetails);
+                $captureToken = $this->getTokenFactory()->createCaptureToken(
+                    $paymentName,
+                    $paymentDetails,
+                    'acme_payment_details_view'
+                );
+
+                $paymentDetails['returnUrl'] = $captureToken->getTargetUrl();
+                $paymentDetails['cancelUrl'] = $captureToken->getTargetUrl();
+
+                $storage->updateModel($paymentDetails);
+
+                return $this->redirect($captureToken->getTargetUrl());
+//                $response = $paymentGateway->purchase(array('amount' => '10.00', 'card' => $creditCard))->send();
                 if ($response->isSuccessful()) {
                     $process = $this->processStep->getProcess();
                     //Signal enclosing process step that we are done here
@@ -67,5 +90,21 @@ class ExecutePaymentController extends AbstractProcessStepController
         $paymentForm = $this->container->get('form.factory')->create(new PaymentFormType(), $creditCard, array());
 
         return $paymentForm;
+    }
+
+    /**
+     * @return RegistryInterface
+     */
+    protected function getPayum()
+    {
+        return $this->container->get('payum');
+    }
+
+    /**
+     * @return TokenFactory
+     */
+    protected function getTokenFactory()
+    {
+        return $this->container->get('payum.security.token_factory');
     }
 }
