@@ -24,6 +24,10 @@ class ExecutePaymentController extends AbstractProcessStepController
         $processManager = $this->container->get('vespolina.process_manager');
         $request = $this->container->get('request');
         $paymentForm = $this->createPaymentForm();
+        $process = $this->processStep->getProcess();
+        $process->completeProcessStep($this->processStep);
+        $processManager->updateProcess($process);
+        var_dump($process->execute()); die;
 //        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro');
         if ($this->isPostForForm($request, $paymentForm)) {
             $paymentForm->handleRequest($request);
@@ -42,10 +46,16 @@ class ExecutePaymentController extends AbstractProcessStepController
                 $paymentDetails['amount'] = (float) 10;
                 $paymentDetails['card'] = $creditCard;
                 $storage->updateModel($paymentDetails);
+
+                $process = $this->processStep->getProcess();
+                $process->completeProcessStep($this->processStep);
+                $processManager->updateProcess($process);
+
                 $captureToken = $this->getTokenFactory()->createCaptureToken(
                     $paymentName,
                     $paymentDetails,
-                    'acme_payment_details_view'
+//                    'acme_payment_details_view'
+                    $process->execute()
                 );
 
                 $paymentDetails['returnUrl'] = $captureToken->getTargetUrl();
@@ -53,19 +63,19 @@ class ExecutePaymentController extends AbstractProcessStepController
 
                 $storage->updateModel($paymentDetails);
 
-                return $this->redirect($captureToken->getTargetUrl());
+                return $this->container->get('router')->redirect($captureToken->getTargetUrl());
 //                $response = $paymentGateway->purchase(array('amount' => '10.00', 'card' => $creditCard))->send();
-                if ($response->isSuccessful()) {
-                    $process = $this->processStep->getProcess();
-                    //Signal enclosing process step that we are done here
-                    $process->completeProcessStep($this->processStep);
-                    $processManager->updateProcess($process);
-                    $this->container->get('session')->getFlashBag()->add('success', 'The transaction was successful.');
-
-                    return $process->execute();
-                } else {
-                    $this->container->get('session')->getFlashBag()->add('danger', $response->getMessage());
-                }
+//                if ($response->isSuccessful()) {
+//                    $process = $this->processStep->getProcess();
+//                    //Signal enclosing process step that we are done here
+//                    $process->completeProcessStep($this->processStep);
+//                    $processManager->updateProcess($process);
+//                    $this->container->get('session')->getFlashBag()->add('success', 'The transaction was successful.');
+//
+//                    return $process->execute();
+//                } else {
+//                    $this->container->get('session')->getFlashBag()->add('danger', $response->getMessage());
+//                }
             } catch(InvalidCreditCardException $e) {
                 $this->container->get('session')->getFlashBag()->add('danger', $e->getMessage());
             }
