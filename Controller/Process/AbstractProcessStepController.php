@@ -15,7 +15,7 @@ use Vespolina\CommerceBundle\Process\ProcessStepInterface;
 class AbstractProcessStepController extends AbstractController
 {
     /**
-     * @var ProcessStepInterface
+     * @var \Vespolina\CommerceBundle\Process\AbstractProcessStep
      */
     protected $processStep;
 

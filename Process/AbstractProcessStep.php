@@ -49,7 +49,7 @@ abstract class AbstractProcessStep implements ProcessStepInterface
     }
 
     /**
-     * @return ProcessInterface
+     * @return \Vespolina\CommerceBundle\Process\AbstractProcess
      */
     public function getProcess()
     {

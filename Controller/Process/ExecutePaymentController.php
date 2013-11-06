@@ -25,7 +25,8 @@ class ExecutePaymentController extends AbstractProcessStepController
         $request = $this->container->get('request');
 
         $paymentForm = $this->createPaymentForm();
-        $process = $this->processStep->getProcess();
+        $process = $this->processStep->getProcess(); 
+        /** @var \Vespolina\CommerceBundle\ProcessScenario\Checkout\CheckoutProcessB2C $process */
         $process->completeProcessStep($this->processStep);
         $processManager->updateProcess($process);
  //       var_dump($process->execute()); die;
