@@ -20,7 +20,7 @@
                 {{ form_row(paymentForm.expiryYear) }}
             </div>
         </div>
-        <input type="submit" class="btn" id="submit" value="confirm" />
-    </form>
+        {{ form_row(paymentForm.confirm, { 'attr': {'class': 'btn'} }) }}
+    {{ form_end(paymentForm) }}
 {% endblock %}
 

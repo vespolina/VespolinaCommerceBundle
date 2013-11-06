@@ -24,9 +24,9 @@ class ExecutePaymentController extends AbstractProcessStepController
         $request = $this->container->get('request');
         $paymentForm = $this->createPaymentForm();
 
-        if ($this->isPostForForm($request, $paymentForm)) { var_dump(1);
-            $paymentForm->handleRequest($request);
-            if ($paymentForm->isValid()) { var_dump(2);
+        if ($this->isPostForForm($request, $paymentForm)) {
+            $paymentForm->handleRequest($request); var_dump($paymentForm->getErrors());
+            if ($paymentForm->isValid()) {
                 /** @var CreditCard $creditCard */
                 $creditCard = $paymentForm->getData();
 
