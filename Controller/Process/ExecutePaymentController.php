@@ -9,9 +9,8 @@
 
 namespace Vespolina\CommerceBundle\Controller\Process;
 
-use Symfony\Component\HttpFoundation\Request;
 use Vespolina\CommerceBundle\Form\Type\Process\PaymentFormType;
-use Omnipay\Common\CreditCard;
+use Vespolina\CommerceBundle\Entity\CreditCard;
 use Omnipay\Common\Exception\InvalidCreditCardException;
 use Payum\Registry\RegistryInterface;
 use Payum\Bundle\PayumBundle\Security\TokenFactory;
@@ -23,23 +22,14 @@ class ExecutePaymentController extends AbstractProcessStepController
         $paymentName = 'paypal_pro_checkout_via_omnipay';
         $processManager = $this->getProcessManager();
         $request = $this->container->get('request');
-
         $paymentForm = $this->createPaymentForm();
-        $process = $this->processStep->getProcess(); 
-        /** @var \Vespolina\CommerceBundle\ProcessScenario\Checkout\CheckoutProcessB2C $process */
-        $process->completeProcessStep($this->processStep);
-        $processManager->updateProcess($process);
- //       var_dump($process->execute()); die;
-//        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro');
-        if ($this->isPostForForm($request, $paymentForm)) {
+
+        if ($this->isPostForForm($request, $paymentForm)) { var_dump(1);
             $paymentForm->handleRequest($request);
-            /** @var CreditCard $creditCard */
-            $creditCard = $paymentForm->getData();
-            // For now use Omnipay\Common\CreditCard's native validate()
-            // method but validation should be moved to a yml file using
-            // the Symfony2 validation component
-            try {
-                $creditCard->validate();
+            if ($paymentForm->isValid()) { var_dump(2);
+                /** @var CreditCard $creditCard */
+                $creditCard = $paymentForm->getData();
+
                 $storage = $this->getPayum()->getStorageForClass(
                     'Vespolina\DefaultStoreBundle\Document\OmnipayPaymentDetails',
                     $paymentName
@@ -49,23 +39,29 @@ class ExecutePaymentController extends AbstractProcessStepController
                 $paymentDetails['card'] = $creditCard;
                 $storage->updateModel($paymentDetails);
 
+                /** @var \Vespolina\CommerceBundle\ProcessScenario\Checkout\CheckoutProcessB2C $process */
                 $process = $this->processStep->getProcess();
                 $process->completeProcessStep($this->processStep);
                 $processManager->updateProcess($process);
+                var_dump($process->execute()); die;
 
                 $captureToken = $this->getTokenFactory()->createCaptureToken(
                     $paymentName,
                     $paymentDetails,
-//                    'acme_payment_details_view'
-                    $process->execute()
+                    'acme_payment_details_view'
                 );
 
                 $paymentDetails['returnUrl'] = $captureToken->getTargetUrl();
                 $paymentDetails['cancelUrl'] = $captureToken->getTargetUrl();
 
                 $storage->updateModel($paymentDetails);
+            }
 
-                return $this->container->get('router')->redirect($captureToken->getTargetUrl());
+
+
+
+
+//                return $this->container->get('router')->redirect($captureToken->getTargetUrl());
 //                $response = $paymentGateway->purchase(array('amount' => '10.00', 'card' => $creditCard))->send();
 //                if ($response->isSuccessful()) {
 //                    $process = $this->processStep->getProcess();
@@ -78,9 +74,6 @@ class ExecutePaymentController extends AbstractProcessStepController
 //                } else {
 //                    $this->container->get('session')->getFlashBag()->add('danger', $response->getMessage());
 //                }
-            } catch(InvalidCreditCardException $e) {
-                $this->container->get('session')->getFlashBag()->add('danger', $e->getMessage());
-            }
         }
 
         return $this->render('VespolinaCommerceBundle:Process:Step/executePayment.html.twig',

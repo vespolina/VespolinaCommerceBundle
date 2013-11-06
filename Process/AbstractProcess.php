@@ -56,6 +56,9 @@ abstract class AbstractProcess implements ProcessInterface
         return $this->getState() == 'completed';
     }
 
+    /**
+     * @throws \Exception
+     */
     public function execute()
     {
         if ($this->isCompleted()) {
