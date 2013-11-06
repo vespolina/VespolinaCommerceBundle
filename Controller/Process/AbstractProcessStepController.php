@@ -34,7 +34,7 @@ class AbstractProcessStepController extends AbstractController
 
     public function setProcessStep(ProcessStepInterface $processStep)
     {
-        $this->processStep = $processStep; var_dump($processStep); die;
+        $this->processStep = $processStep;
     }
 
     /**
@@ -45,14 +45,18 @@ class AbstractProcessStepController extends AbstractController
         return $this->processStep;
     }
 
+    /**
+     * @param $processId
+     * @return ProcessStepInterface
+     * @throws \InvalidArgumentException
+     */
     protected function getCurrentProcessStepByProcessId($processId)
     {
-        $processManager = $this->container->get('vespolina.process_manager');
-        $process = $processManager->findProcessById($processId);
-        if ($process) {
-
-            return $process->getCurrentProcessStep();
+        if (!$process = $this->getProcessManager()->findProcessById($processId)) {
+            throw new \InvalidArgumentException("Now process was found for processId {$processId}");
         }
+
+        return $process->getCurrentProcessStep();
     }
 
     /**

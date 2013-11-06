@@ -43,6 +43,10 @@ class ProcessManager extends ContainerAware implements ProcessManagerInterface
         return $process;
     }
 
+    /**
+     * @param string $processId
+     * @return ProcessInterface
+     */
     public function findProcessById($processId)
     {
         $processContextFound = null;
