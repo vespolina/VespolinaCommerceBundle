@@ -11,7 +11,6 @@ namespace Vespolina\CommerceBundle\Controller\Process;
 
 use Vespolina\CommerceBundle\Form\Type\Process\PaymentFormType;
 use Vespolina\CommerceBundle\Entity\CreditCard;
-use Omnipay\Common\Exception\InvalidCreditCardException;
 use Payum\Registry\RegistryInterface;
 use Payum\Bundle\PayumBundle\Security\TokenFactory;
 
@@ -25,7 +24,7 @@ class ExecutePaymentController extends AbstractProcessStepController
         $paymentForm = $this->createPaymentForm();
 
         if ($this->isPostForForm($request, $paymentForm)) {
-            $paymentForm->handleRequest($request); var_dump($paymentForm->getErrors());
+            $paymentForm->handleRequest($request);
             if ($paymentForm->isValid()) {
                 /** @var CreditCard $creditCard */
                 $creditCard = $paymentForm->getData();
