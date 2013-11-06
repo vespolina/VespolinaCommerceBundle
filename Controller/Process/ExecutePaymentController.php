@@ -21,13 +21,14 @@ class ExecutePaymentController extends AbstractProcessStepController
     public function executeAction()
     {
         $paymentName = 'paypal_pro_checkout_via_omnipay';
-        $processManager = $this->container->get('vespolina.process_manager');
+        $processManager = $this->getProcessManager();
         $request = $this->container->get('request');
+
         $paymentForm = $this->createPaymentForm();
         $process = $this->processStep->getProcess();
         $process->completeProcessStep($this->processStep);
         $processManager->updateProcess($process);
-        var_dump($process->execute()); die;
+ //       var_dump($process->execute()); die;
 //        $paymentGateway = $this->container->get('vespolina_commerce.payment_gateway.paypal_pro');
         if ($this->isPostForForm($request, $paymentForm)) {
             $paymentForm->handleRequest($request);

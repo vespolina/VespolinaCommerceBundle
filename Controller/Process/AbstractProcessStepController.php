@@ -14,6 +14,9 @@ use Vespolina\CommerceBundle\Process\ProcessStepInterface;
 
 class AbstractProcessStepController extends AbstractController
 {
+    /**
+     * @var ProcessStepInterface
+     */
     protected $processStep;
 
     public function completeProcessStep()
@@ -31,7 +34,7 @@ class AbstractProcessStepController extends AbstractController
 
     public function setProcessStep(ProcessStepInterface $processStep)
     {
-        $this->processStep = $processStep;
+        $this->processStep = $processStep; var_dump($processStep); die;
     }
 
     /**
@@ -50,5 +53,13 @@ class AbstractProcessStepController extends AbstractController
 
             return $process->getCurrentProcessStep();
         }
+    }
+
+    /**
+     * @return \Vespolina\CommerceBundle\Process\ProcessManager
+     */
+    public function getProcessManager()
+    {
+        return $this->container->get('vespolina.process_manager');
     }
 }

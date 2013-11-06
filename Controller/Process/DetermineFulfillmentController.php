@@ -16,7 +16,7 @@ class DetermineFulfillmentController extends AbstractProcessStepController
 {
     public function executeAction()
     {
-        $processManager = $this->container->get('vespolina.process_manager');
+        $processManager = $this->getProcessManager();
         $request = $this->container->get('request');
         $selectFulfillmentForm = $this->createSelectFulfillmentForm();
 
