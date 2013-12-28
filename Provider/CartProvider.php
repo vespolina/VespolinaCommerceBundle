@@ -35,7 +35,7 @@ class CartProvider implements CartProviderInterface
     {
         $cart = $this->session->get($this->getCartSessionName($cartType));
 
-        if (null != $cart && $this->isValidCart($cart, $owner)) {
+        if ($this->isValidCart($cart, $owner)) {
 
             return $cart;
         }
@@ -43,13 +43,14 @@ class CartProvider implements CartProviderInterface
         //The cart did never exist in the session or appear to be invalid.
         //Let us check the order manager if an open cart can be found in the persistence layer
 
-        if (null != $owner) {
+        if ($owner) {
             $cart = $this->orderManager->findCartByOwner($owner);
         }
 
         //If the cart is empty or invalid a new cart should be created
-        if (null == $cart || !$this->isValidCart($cart, $owner)) {
+        if (!$this->isValidCart($cart, $owner)) {
             $cart = $this->orderManager->createCart();
+            $this->orderManager->updateOrder($cart);
             if (null != $owner ) {
                 $cart->setOwner($owner);
             }
@@ -73,7 +74,7 @@ class CartProvider implements CartProviderInterface
 
     protected function isValidCart(CartInterface $cart = null, PartnerInterface $owner = null)
     {
-        if (null == $cart) {
+        if (null == $cart || $cart->getId() == null) {
 
             return false;
         }
