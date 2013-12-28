@@ -9,7 +9,7 @@
 
 namespace Vespolina\CommerceBundle\Controller\Checkout;
 
-use Vespolina\StoreBundle\Controller\AbstractController;
+use Vespolina\CommerceBundle\Controller\AbstractController;
 use Vespolina\CommerceBundle\Process\ProcessInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\DependencyInjection\ContainerAware;

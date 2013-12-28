@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Vespolina\Entity\Order\CartInterface;
 use Vespolina\CommerceBundle\Form\Type\Cart\CartType as CartForm;
-use Vespolina\StoreBundle\Controller\AbstractController;
+use Vespolina\CommerceBundle\Controller\AbstractController;
 
 /**
  * @author Richard D Shank <develop@zestic.com>
