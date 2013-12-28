@@ -7,7 +7,7 @@ VespolinaCommerceBundle
 
 Vespolina Ecommerce integration with Symfony2
 
-### A) Install VespolinaCommerceBundle
+### 1) Install VespolinaCommerceBundle
 
 Install using composer.phar or composer binary:
 
@@ -15,7 +15,7 @@ Install using composer.phar or composer binary:
 $ php composer.phar require vespolina/commerce-bundle dev-master
 ```
 
-### B) Enable the bundle
+### 2) Enable the bundle
 
 Enable the bundle in the kernel:
 
@@ -27,12 +27,13 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
+        new FOS\RestBundle\FOSRestBundle(),
         new Vespolina\CommerceBundle\VespolinaCommerceBundle(),
     );
 }
 ```
 
-Required configuration:
+### 3) Required configuration:
 
     vespolina_commerce:
         db_driver: mongodb # mongodb or orm
