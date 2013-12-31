@@ -37,11 +37,16 @@ class RestController extends FOSRestController
       $this->viewHandler = $viewHandler;
     }
 
-    public function getCartAction()
+    public function getCartAction($cart)
     {
         $cart = $this->getCart();
 
         return $this->createResponse(200, $cart);
+    }
+
+    public function createCartAction()
+    {
+
     }
 
     protected function getCart($cartId = null)

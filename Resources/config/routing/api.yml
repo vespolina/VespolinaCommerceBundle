@@ -1,0 +1,5 @@
+cart:
+    type: rest
+    name_prefix: v_api_
+    prefix: /api
+    resource: VespolinaCommerceBundle:Cart/Rest
