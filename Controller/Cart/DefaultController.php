@@ -41,6 +41,7 @@ class DefaultController extends AbstractController
     {
         $product = $this->findProductById($productId);
         $cart = $this->getCart($cartId);
+        $cartId = $cart->getId();
 
         $this->container->get('vespolina.order_manager')->addProductToOrder($cart, $product);
         $this->finishCart($cart);
