@@ -12,7 +12,7 @@ namespace Vespolina\CommerceBundle\Controller\Cart;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Vespolina\Entity\Order\CartInterface;
+use Vespolina\Entity\Order\OrderInterface;
 use Vespolina\CommerceBundle\Form\Type\Cart\CartType as CartForm;
 use Vespolina\CommerceBundle\Controller\AbstractController;
 
@@ -107,10 +107,10 @@ class DefaultController extends AbstractController
         return $this->container->get('vespolina.cart_provider')->getOpenCart();
     }
 
-    protected function finishCart(CartInterface $cart)
+    protected function finishCart(OrderInterface $order)
     {
-        $this->container->get('vespolina.order_manager')->processOrder($cart);
-        $this->container->get('vespolina.order_manager')->updateOrder($cart);
+        $this->container->get('vespolina.order_manager')->processOrder($order);
+        $this->container->get('vespolina.order_manager')->updateOrder($order);
     }
 
     protected function getEngine()

@@ -7,9 +7,8 @@
     <parameters>
         <parameter key="vespolina_commerce.order_manager.class">Vespolina\Order\Manager\OrderManager</parameter>
         <parameter key="vespolina_commerce.entity.order.class">Vespolina\Entity\Order\Order</parameter>
-        <parameter key="vespolina_commerce.entity.cart.class">Vespolina\Entity\Order\Cart</parameter>
         <parameter key="vespolina_commerce.entity.order_item.class">Vespolina\Entity\Order\Item</parameter>
-        <parameter key="vespolina_commerce.entity.order_events.class">Vespolina\Entity\Order\CartEvents</parameter>
+        <parameter key="vespolina_commerce.entity.order_events.class">Vespolina\Entity\Order\OrderEvents</parameter>
         <parameter key="vespolina_commerce.config.auto_persist">false</parameter>
         <parameter key="vespolina_commerce.order_pricing_provider.class">Vespolina\Order\Pricing\DefaultOrderPricingProvider</parameter>
     </parameters>
@@ -23,7 +22,6 @@
         <service id="vespolina_commerce.order_manager" class="%vespolina_commerce.order_manager.class%">
             <argument type="service" id="vespolina_commerce.order_gateway"/>
             <argument type="collection">
-                <argument key="cartClass">%vespolina_commerce.entity.cart.class%</argument>
                 <argument key="itemClass">%vespolina_commerce.entity.order_item.class%</argument>
                 <argument key="orderClass">%vespolina_commerce.entity.order.class%</argument>
                 <argument key="eventsClass">%vespolina_commerce.entity.order_events.class%</argument>
