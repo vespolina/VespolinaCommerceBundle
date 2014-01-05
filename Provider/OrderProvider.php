@@ -36,7 +36,7 @@ class OrderProvider implements OrderProviderInterface
         $order = null;
         if ($orderId = $this->session->get($this->getOrderSessionName($orderType))) {
             $order = $this->orderManager->findOrderById($orderId);
-            if ($this->isValidOrder($order, $owner)) {
+            if ($this->orderManager->isValidOpenOrder($order, $owner)) {
 
                 return $order;
             }
@@ -49,7 +49,7 @@ class OrderProvider implements OrderProviderInterface
         }
 
         //If the order is empty or invalid a new order should be created
-        if (!$this->isValidOrder($order, $owner)) {
+        if (!$this->orderManager->isValidOpenOrder($order, $owner)) {
             $order = $this->orderManager->createOrder();
             $this->orderManager->updateOrder($order);
             if (null != $owner ) {
@@ -70,22 +70,5 @@ class OrderProvider implements OrderProviderInterface
     protected function getOrderSessionName($orderType) {
 
         return 'order_' . $orderType;
-    }
-
-    protected function isValidOrder(OrderInterface $order = null, PartnerInterface $owner = null)
-    {
-        if (null == $order || $order->getId() == null) {
-
-            return false;
-        }
-
-        if (null != $owner && $owner != $order->getOwner()) {
-
-            return false;
-        }
-
-        // todo: make sure order is still in a usaable state
-
-        return true;
     }
 }
