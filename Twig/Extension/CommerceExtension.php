@@ -44,17 +44,13 @@ class CommerceExtension extends \Twig_Extension
 
     public function getPrice($entity, $priceElementName, $currency = '')
     {
-        if (null == $entity->getPricing()) return;
-        $pricingSet = $this->pricingManager->process($entity->getPricing());
-        $pricingValue = $pricingSet[$priceElementName];
-
-        if (null == $pricingValue) return;
-
-        $cur = $currency != '' ? $currency :  $pricingValue->getCurrency();
+        if ($value = $entity->getPrice($priceElementName)) {
+            return;
+        }
 
         return $this->priceFormat(
-                $pricingValue->getAmount(),
-                $cur);
+            $value,
+            $currency);
     }
 
     public function getName()

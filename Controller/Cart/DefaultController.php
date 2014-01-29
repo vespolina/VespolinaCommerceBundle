@@ -32,7 +32,7 @@ class DefaultController extends AbstractController
     {
         $cart = $this->getCart();
 
-        $totalPrice = $cart->getPricingSet()->get('totalGross');
+        $totalPrice = $cart->getPrice();
 
         return $this->render('VespolinaCommerceBundle:Default:navBar.html.twig', array('cart' => $cart, 'totalPrice' => $totalPrice ));
     }

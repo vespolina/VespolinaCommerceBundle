@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Vespolina\Entity\Order\OrderInterface;
 use Vespolina\Entity\Partner\PartnerInterface;
 use Vespolina\Entity\Pricing\Element\TotalDoughValueElement;
-use Vespolina\Entity\Pricing\PricingSet;
 use Vespolina\Order\Manager\OrderManagerInterface;
 
 /**
