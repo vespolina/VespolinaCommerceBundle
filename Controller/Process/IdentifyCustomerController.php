@@ -51,6 +51,7 @@ class IdentifyCustomerController extends AbstractProcessStepController
                 $customerDetails = $customerDetailsForm->getData();
                 $customerPrimaryContact = $customerPrimaryContactForm->getData();
 
+
                 if ($customerAddress) {
                     $customer->setAddresses(new ArrayCollection(array($customerAddress)));
                 }

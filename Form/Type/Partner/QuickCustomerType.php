@@ -11,6 +11,7 @@ namespace Vespolina\CommerceBundle\Form\Type\Partner;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class QuickCustomerType extends AbstractType
 {
@@ -32,18 +33,23 @@ class QuickCustomerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('personalDetails', 'vespolina_commerce_personal_details')
-            ->add('primaryContact', 'vespolina_commerce_simple_contact')
+            ->add('personalDetails', 'vespolina_commerce_personal_details', array(
+                    'mapped'	=> true)
+            )
+            ->add('primaryContact', 'vespolina_commerce_simple_contact', array(
+                'mapped'	=> false)
+            )
             ->add('address', 'vespolina_commerce_address', array(
                 'mapped'	=> false,
             )
         );
     }
 
-    public function getDefaultOptions(array $options = array())
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
-            'data_class' => $this->dataClass,
-        );
+        $resolver->setDefaults(array(
+                'data_class' => $this->dataClass,
+            ));
     }
+
 }

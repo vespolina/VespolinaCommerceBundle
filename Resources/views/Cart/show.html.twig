@@ -20,7 +20,7 @@
                     {{ form_widget(item.quantity, { 'attr': { 'class': 'span1'}}) }}
                     {{ form_widget(item.product.id) }}
                 </td>
-                <td>{{ price(item.vars.value,'totalPrice')}} </td>
+                <td>{{ price(item.vars.value,'subtotal')}} </td>
                 <td><a href="{{ path('v_cart_remove_product', {'productId': item.vars.value.product.id}) }}"><i class="icon-trash"></i></a></td>
             </tr>
         {% else %}
@@ -43,7 +43,7 @@
 
 <div class="well col-md-4 col-md-offset-8">
     <p align="center">
-        <strong>Grand Total</strong> {{ price(cart,'totalPrice') }}<br/>
+        <strong>Grand Total</strong> {{ price(cart,'total') }}<br/>
         {% if cart.getAttribute('taxation_enabled') == true %}
             Tax {{ price(cart, 'totalTax') }}<br/>
         {% endif %}

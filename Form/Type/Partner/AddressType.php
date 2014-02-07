@@ -11,6 +11,7 @@ namespace Vespolina\CommerceBundle\Form\Type\Partner;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AddressType extends AbstractType
 {
@@ -40,11 +41,11 @@ class AddressType extends AbstractType
             ->add('country', 'country')
         ;
     }
-    
-    public function getDefaultOptions(array $options = array())
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
-            'data_class' => $this->dataClass,
-        );
+        $resolver->setDefaults(array(
+                'data_class' => $this->dataClass,
+            ));
     }
 }

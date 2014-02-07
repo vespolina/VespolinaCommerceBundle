@@ -11,6 +11,7 @@ namespace Vespolina\CommerceBundle\Form\Type\Partner;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SimpleContactType extends AbstractType
 {
@@ -35,11 +36,11 @@ class SimpleContactType extends AbstractType
             ->add('email', null, array('required' => true))
         ;
     }
-    
-    public function getDefaultOptions(array $options = array())
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
-            'data_class' => $this->dataClass,
-        );
+        $resolver->setDefaults(array(
+                'data_class' => $this->dataClass,
+            ));
     }
 }

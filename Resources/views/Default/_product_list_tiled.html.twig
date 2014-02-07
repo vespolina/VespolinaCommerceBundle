@@ -15,7 +15,7 @@
                         </span>
                         <span class="v-product-prices">
                            <div class="v-product-unit-price-total">
-                           {{ price(product, 'unitPriceTotal') }}
+                           {{ price(product, 'unitTotal') }}
                            </div>
 
                         </span>
@@ -31,7 +31,7 @@
                               <a class="btn btn-primary" href="{{ path('v_cart_add_product', {'productId': product.id}) }}">Add to Cart</a>
                                 <!--
                                 <div class="v-product-unit-price-msrp-total">
-                                    Was {{ price(product, 'unitPriceMSRPTotal') }}, you save {{ price(product, 'MSRPDiscountRate', '%') }}
+                                    Was {{ price(product, 'unitMSRPTotal') }}, you save {{ price(product, 'MSRPDiscountRate', '%') }}
                                 </div> -->
                             </div>
                         </div>
