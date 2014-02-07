@@ -81,7 +81,7 @@ class CheckoutController extends AbstractController
 
     protected function getCart()
     {
-        return $this->container->get('vespolina.cart_provider')->getOpenCart();
+        return $this->container->get('vespolina.order_provider')->getOpenOrder();
     }
 
     protected function handleProcessCompletion(ProcessInterface $process)

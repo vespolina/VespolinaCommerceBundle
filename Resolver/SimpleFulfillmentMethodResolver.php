@@ -22,6 +22,8 @@ class SimpleFulfillmentMethodResolver extends AbstractFulfillmentMethodResolver
 
         //Get all product types
         foreach ($products as $product) {
+
+            $product->getId();
             $productTypes[$product->getType()] = $product->getType();
         }
 
@@ -31,11 +33,15 @@ class SimpleFulfillmentMethodResolver extends AbstractFulfillmentMethodResolver
             throw new \Exception('No products found to be resolved');
         }
 
+        var_dump($productTypes);
+
         switch (array_shift($productTypes)) {
             case Product::PHYSICAL:
             case 'default':
                 return $this->resolveFulfillmentMethodsPhysical($products, $zone);
         }
+
+        return array();
     }
 
     public function resolveFulfillmentMethodsPhysical($products, $zone)
