@@ -80,6 +80,12 @@ class VespolinaCommerceExtension extends Extension
         if (isset($config['option'])) {
             $this->configureOption($config['option'], $container);
         }
+        if (isset($config['order_manager'])) {
+            $this->configureOrderManager($config['order_manager'], $container);
+        }
+        if (isset($config['order'])) {
+            $this->configureOrder($config['order'], $container);
+        }
         if (isset($config['product_manager'])) {
             $this->configureProductManager($config['product_manager'], $container);
         }
@@ -176,6 +182,20 @@ class VespolinaCommerceExtension extends Extension
             if (isset($formConfig['data_class'])) {
                 $container->setParameter('vespolina_commerce.option.form.entity.data_class.class', $formConfig['data_class']);
             }
+        }
+    }
+
+    protected function configureOrderManager(array $config, ContainerBuilder $container)
+    {
+        if (isset($config['class'])) {
+            $container->setParameter('vespolina_commerce.order_manager.class', $config['class']);
+        }
+    }
+
+    protected function configureOrder(array $config, ContainerBuilder $container)
+    {
+        if (isset($config['class'])) {
+            $container->setParameter('vespolina_commerce.entity.order.class', $config['class']);
         }
     }
 

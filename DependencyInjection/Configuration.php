@@ -37,6 +37,8 @@ class Configuration implements ConfigurationInterface
         $this->addOptionGroupSection($rootNode);
         $this->addConfiguredOptionGroupSection($rootNode);
         $this->addOptionSection($rootNode);
+        $this->addOrderManagerSection($rootNode);
+        $this->addOrderSection($rootNode);
         $this->addProductManagerSection($rootNode);
         $this->addProductSection($rootNode);
         $this->addAttributeSection($rootNode);
@@ -126,6 +128,32 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
     }
+
+    private function addOrderSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('order')
+                    ->children()
+                        ->scalarNode('class')->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addOrderManagerSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('product_manager')
+                    ->children()
+                        ->scalarNode('class')->end()
+                ->end()
+            ->end()
+        ;
+    }
+
 
     private function addProductSection(ArrayNodeDefinition $node)
     {
