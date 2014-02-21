@@ -23,76 +23,76 @@ class DefaultController extends AbstractController
 {
     public function quickInspectionAction()
     {
-        $cart = $this->getCart();
-        //$totalPrice = $cart->getPricingSet()->get('totalGross');
-        return $this->render('VespolinaCommerceBundle:Cart:quickInspection.html.twig', array('cart' => $cart ));
+        $order = $this->getOrder();
+        //$totalPrice = $order->getPricingSet()->get('totalGross');
+        return $this->render('VespolinaCommerceBundle:Cart:quickInspection.html.twig', array('cart' => $order ));
     }
 
     public function navBarAction()
     {
-        $cart = $this->getCart();
+        $order = $this->getOrder();
 
-        $totalPrice = $cart->getPrice();
+        $totalPrice = $order->getPrice();
 
-        return $this->render('VespolinaCommerceBundle:Default:navBar.html.twig', array('cart' => $cart, 'totalPrice' => $totalPrice ));
+        return $this->render('VespolinaCommerceBundle:Default:navBar.html.twig', array('cart' => $order, 'totalPrice' => $totalPrice ));
     }
 
-    public function addToCartAction($productId, $cartId = null)
+    public function addToCartAction($productId, $orderId = null)
     {
         $product = $this->findProductById($productId);
-        $cart = $this->getCart($cartId);
-        $cartId = $cart->getId();
+        $order = $this->getOrder($orderId);
+        $orderId = $order->getId();
 
-        $this->container->get('vespolina.order_manager')->addProductToOrder($cart, $product);
-        $this->finishCart($cart);
+        $this->container->get('vespolina.order_manager')->addProductToOrder($order, $product);
+        $this->finishOrder($order);
 
-        return new RedirectResponse($this->container->get('router')->generate('v_cart_show', array('cartId' => $cartId)));
+        return new RedirectResponse($this->container->get('router')->generate('v_cart_show', array('cartId' => $orderId)));
     }
 
-    public function removeFromCartAction($productId, $cartId = null)
+    public function removeFromCartAction($productId, $orderId = null)
     {
-        $cart = $this->getCart($cartId);
+        $order = $this->getOrder($orderId);
         $product = $this->findProductById($productId);
 
-        $this->container->get('vespolina.order_manager')->removeItemFromCart($cart, $product);
-        $this->finishCart($cart);
+        $this->container->get('vespolina.order_manager')->removeItemFromCart($order, $product);
+        $this->finishOrder($order);
 
-        return new RedirectResponse($this->container->get('router')->generate('v_cart_show', array('cartId' => $cartId)));
+        return new RedirectResponse($this->container->get('router')->generate('v_cart_show', array('cartId' => $orderId)));
     }
 
-    public function updateCartAction ($cartId = null)
+    public function updateCartAction($orderId = null)
     {
         $request = $this->container->get('request');
         if ($request->getMethod() == 'POST')
         {
-            $cart = $this->getCart();
+            $order = $this->getOrder();
             $data = $request->get('cart');
             foreach ($data['items'] as $item)
             {
                 $product = $this->findProductById($item['product']['id']);
                 if ($item['quantity'] < 1)
                 {
-                    $this->container->get('vespolina.order_manager')->removeItemFromCart ($cart, $product);
-                } elseif ($cartItem = $this->container->get('vespolina.order_manager')->findProductInOrder($cart, $product)) {
-                    $this->container->get('vespolina.order_manager')->setItemQuantity($cartItem, $item['quantity']);
+                    $this->container->get('vespolina.order_manager')->removeItemFromCart ($order, $product);
+                } elseif ($orderItem = $this->container->get('vespolina.order_manager')->findProductInOrder($order, $product)) {
+                    $this->container->get('vespolina.order_manager')->setItemQuantity($orderItem, $item['quantity']);
                 }
             }
 
             //Finish cart is only called when all required cart updates have been performed.
             //It assures amongst that prices are only recalculated once for the entire cart
-            $this->finishCart($cart);
+            $this->finishOrder($order);
         }
 
         return new RedirectResponse($this->container->get('router')->generate('v_cart_show' ));
     }
 
-    public function showAction($cartId = null)
+    public function showAction($orderId = null)
     {
-        $cart = $this->getCart($cartId);
+        $order = $this->getOrder($orderId);
 
-        $form = $this->container->get('form.factory')->create(new CartForm(), $cart);
+        $form = $this->container->get('form.factory')->create(new CartForm(), $order);
 
-        $template = $this->container->get('templating')->render(sprintf('VespolinaCommerceBundle:Cart:show.html.%s', $this->getEngine()), array('cart' => $cart, 'form' => $form->createView()));
+        $template = $this->container->get('templating')->render(sprintf('VespolinaCommerceBundle:Cart:show.html.%s', $this->getEngine()), array('cart' => $order, 'form' => $form->createView()));
 
         return new Response($template);
     }
@@ -102,12 +102,12 @@ class DefaultController extends AbstractController
         return $this->container->get('vespolina.product_manager')->findProductById($productId);
     }
 
-    protected function getCart()
+    protected function getOrder($orderId = null)
     {
-        return $this->container->get('vespolina.order_provider')->getOpenOrder();
+        return $this->container->get('vespolina.order_provider')->getOpenOrder($orderId);
     }
 
-    protected function finishCart(OrderInterface $order)
+    protected function finishOrder(OrderInterface $order)
     {
         $this->container->get('vespolina.order_manager')->processOrder($order);
         $this->container->get('vespolina.order_manager')->updateOrder($order);
