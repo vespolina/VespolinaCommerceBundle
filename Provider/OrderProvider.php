@@ -30,9 +30,33 @@ class OrderProvider implements OrderProviderInterface
         $this->session = $session;
     }
 
-    public function getOpenOrder(PartnerInterface $owner = null, $orderType = 'default')
+    /**
+     * {@inheritdoc}
+     */
+    public function getOpenOrder($orderId = null, PartnerInterface $owner = null, $orderType = 'default')
     {
         $order = null;
+        // check for a valid open order by id
+        if ($orderId) {
+            $order = $this->orderManager->findOrderById($orderId);
+            if ($this->orderManager->isValidOpenOrder($order, $owner)) {
+                $this->session->set($this->getOrderSessionName($orderType), $order->getId());
+
+                return $order;
+            }
+        }
+
+        //Let us check the order manager if an open order can be found in the persistence layer
+        if ($owner) {
+            $order = $this->orderManager->findOrderByOwner($owner);
+            if ($this->orderManager->isValidOpenOrder($order, $owner)) {
+                $this->session->set($this->getOrderSessionName($orderType), $order->getId());
+
+                return $order;
+            }
+        }
+
+        // check the session for an open order
         if ($orderId = $this->session->get($this->getOrderSessionName($orderType))) {
             $order = $this->orderManager->findOrderById($orderId);
             if ($this->orderManager->isValidOpenOrder($order, $owner)) {
@@ -41,19 +65,11 @@ class OrderProvider implements OrderProviderInterface
             }
         }
 
-        //The order did never exist in the session or appear to be invalid.
-        //Let us check the order manager if an open order can be found in the persistence layer
-        if ($owner) {
-            $order = $this->orderManager->findOrderByOwner($owner);
-        }
-
-        //If the order is empty or invalid a new order should be created
-        if (!$this->orderManager->isValidOpenOrder($order, $owner)) {
-            $order = $this->orderManager->createOrder();
-            $this->orderManager->updateOrder($order);
-            if (null != $owner ) {
-                $order->setOwner($owner);
-            }
+        // There is still no order or an order is invalid, so a new order should be created
+        $order = $this->orderManager->createOrder();
+        $this->orderManager->updateOrder($order);
+        if (null != $owner ) {
+            $order->setOwner($owner);
         }
 
         $this->session->set($this->getOrderSessionName($orderType), $order->getId());

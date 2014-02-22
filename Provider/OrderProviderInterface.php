@@ -18,15 +18,16 @@ use Vespolina\Entity\Partner\PartnerInterface;
 interface OrderProviderInterface
 {
     /**
-     * Get the order for the current session if no order owner was passed.
-     * If a order owner was passed the system will try to lookup an existing order.
+     * Get the order for the current session if no id or order owner was passed.
+     * If an id is passed, the system will try to lookup the order by id, returning it, if open.
+     * If a order owner was passed the system will try to lookup an existing open order.
      * When no open order could be found a new order will be created;
      *
      * @param \Vespolina\Entity\Partner\PartnerInterface $owner
      * @param $orderType Type of the order, allows the definition of multiple active orders
      * @return mixed
      */
-    function getOpenOrder(PartnerInterface $owner = null, $orderType = 'default');
+    function getOpenOrder($orderId = null, PartnerInterface $owner = null, $orderType = 'default');
 
     /**
      * Reset the order (remove items, remove from persistence gateway),...
