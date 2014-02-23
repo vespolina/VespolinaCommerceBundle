@@ -1,0 +1,4 @@
+v_admin_dashboard:
+    path: /
+    defaults: { _controller: VespolinaCommerceBundle:Admin\Admin:dashboard }
+
