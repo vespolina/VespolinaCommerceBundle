@@ -8,6 +8,6 @@ class AdminController extends ContainerAware
 {
     public function dashboardAction()
     {
-        return $this->container->get('templating')->renderResponse('VespolinaCommerceBundle:Admin:dashboard.html.twig');
+        return $this->container->get('templating')->renderResponse('VespolinaCommerceBundle:Admin:base.html.twig');
     }
 }

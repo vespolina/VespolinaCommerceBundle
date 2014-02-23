@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% block html_tag %}
-<html data-ng-app="siteApp">
+<html data-ng-app="adminApp">
 {% endblock html_tag %}
 
 <head>
@@ -46,7 +46,7 @@
     </style>
 </head>
 
-<body>
+<body data-ng-controller="AdminPageController">
 
 <div id="wrapper">
 
@@ -199,24 +199,13 @@
 
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
-        <ul class="nav" id="side-menu">
-            <li class="sidebar-search">
-                <div class="input-group custom-search-form">
-                    <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                </div>
-                <!-- /input-group -->
-            </li>
+        <ul nav-menu class="nav" id="side-menu">
             <li>
-                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                <a href="{{ path('v_admin_dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
 
             <li>
-                <a href="tables.html"><i class="fa fa-table fa-fw"></i> Products</a>
+                <a href="{{ path('v_admin_dashboard') }}#/products"><i class="fa fa-table fa-fw"></i> Products</a>
             </li>
 
         </ul>
@@ -230,15 +219,11 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">{% block pageTitle %}Dashboard{% endblock %}</h1>
+        <h1 class="page-header">Dashboard</h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
-    <div id="content">
-    {% block content %}
-
-    {% endblock content %}
-    </div>
+    <div ng-view></div>
 </div>
 <!-- /#page-wrapper -->
 
@@ -253,8 +238,11 @@
 {% javascripts
 '@VespolinaCommerceBundle/Resources/public/js/jquery-1.10.2.js'
 '@VespolinaCommerceBundle/Resources/public/js/bootstrap.min.js'
+'@VespolinaCommerceBundle/Resources/public/js/angular.js'
+'@VespolinaCommerceBundle/Resources/public/js/angular-route.js'
 '@VespolinaCommerceBundle/Resources/public/js/plugins/metisMenu/jquery.metisMenu.js'
 '@VespolinaCommerceBundle/Resources/public/js/sb-admin.js'
+'@VespolinaCommerceBundle/Resources/public/js/admin-app.js'
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
