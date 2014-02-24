@@ -1,0 +1,8 @@
+{
+    "dependencies": {
+        "bootstrap": "latest",
+        "angular": "latest",
+        "angular-route": "latest",
+        "ng-table": "~0.3.2"
+    }
+}
