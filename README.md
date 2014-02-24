@@ -28,7 +28,6 @@ Enable the bundle in the kernel:
 ``` php
 <?php
 // app/AppKernel.php
-
 public function registerBundles()
 {
     $bundles = array(
@@ -41,34 +40,36 @@ public function registerBundles()
 ```
 
 ### 3) Required configuration:
+```yml
+# app/config/config.yml
+sp_bower:
+    bundles:
+        VespolinaCommerceBundle: ~
 
-    # app/config/config.yml
-    sp_bower:
-        bundles:
-            VespolinaCommerceBundle: ~
-
-    vespolina_commerce:
-        db_driver: mongodb # mongodb or orm
+vespolina_commerce:
+    db_driver: mongodb # mongodb or orm
+```
 
 ### 4) Routing options
+```yml
+# app/config/routing.yml
+vespolina_admin:
+    resource: "@VespolinaCommerceBundle/Resources/config/routing/admin.yml"
+    prefix:   /admin/
 
-    # app/config/routing.yml
-    vespolina_admin:
-        resource: @VespolinaCommerceBundle/Resources/config/routing/admin.yml
-        prefix:   /admin/
-    
-    vespolina_commerce_checkout:
-        resource: "@VespolinaCommerceBundle/Resources/config/routing/checkout.xml"
-        prefix:   /
-    
-    vespolina_commerce_cart:
-        resource: "@VespolinaCommerceBundle/Resources/config/routing/cart.xml"
-        prefix:   /
-    
-    vespolina_commerce_product:
-        resource: "@VespolinaCommerceBundle/Resources/config/routing/product.xml"
-        prefix:   /
-    
-    vespolina_taxonomy:
-        resource: "@VespolinaCommerceBundle/Resources/config/routing/taxonomy.xml"
-        prefix:   /
+vespolina_commerce_checkout:
+    resource: "@VespolinaCommerceBundle/Resources/config/routing/checkout.xml"
+    prefix:   /
+
+vespolina_commerce_cart:
+    resource: "@VespolinaCommerceBundle/Resources/config/routing/cart.xml"
+    prefix:   /
+
+vespolina_commerce_product:
+    resource: "@VespolinaCommerceBundle/Resources/config/routing/product.xml"
+    prefix:   /
+
+vespolina_taxonomy:
+    resource: "@VespolinaCommerceBundle/Resources/config/routing/taxonomy.xml"
+    prefix:   /
+```
