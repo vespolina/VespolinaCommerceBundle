@@ -1,5 +1,6 @@
-var adminApp = angular.module('adminApp', ['ngRoute'])
+var adminApp = angular.module('adminApp', ['ngRoute', 'ngTable'])
     .directive('navMenu', function($location) {
+        //https://ryankaskel.com/blog/2013/05/27/a-different-approach-to-angularjs-navigation-menus
     return function(scope, element, attrs) {
         var links = element.find('a'),
             onClass = attrs.navMenu || 'active',
