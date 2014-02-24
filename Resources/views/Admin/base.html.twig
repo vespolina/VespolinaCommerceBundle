@@ -4,15 +4,15 @@
 {% endblock html_tag %}
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block siteTitle %}Ecommerce Admin{% endblock %}</title>
 
     {% stylesheets
-    '@VespolinaCommerceBundle/Resources/public/css/bootstrap.min.css'
-    '@VespolinaCommerceBundle/Resources/public/font-awesome/css/font-awesome.css'
+    '@bootstrap_css'
+    '@ng_table_css'
+    '@VespolinaCommerceBundle/Resources/public/componentsfont-awesome/css/font-awesome.css'
     '@VespolinaCommerceBundle/Resources/public/css/sb-admin.css'
     filter='cssrewrite'
     %}
@@ -229,9 +229,11 @@
 </div>
 
 {% javascripts
-"@bootstrap_js"
+'@jquery_js'
+'@bootstrap_js'
 '@angular_js'
-'@VespolinaCommerceBundle/Resources/public/js/angular-route.js'
+'@angular_route_js'
+'@ng_table_js'
 '@VespolinaCommerceBundle/Resources/public/js/plugins/metisMenu/jquery.metisMenu.js'
 '@VespolinaCommerceBundle/Resources/public/js/sb-admin.js'
 '@VespolinaCommerceBundle/Resources/public/js/admin-app.js'
