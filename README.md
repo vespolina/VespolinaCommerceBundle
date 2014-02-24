@@ -7,6 +7,12 @@ VespolinaCommerceBundle
 
 Vespolina Ecommerce integration with Symfony2
 
+The admin page has javascript dependencies that can be handled by [bower](http://bower.io) using the [SpBowerBundle](https://github.com/Spea/SpBowerBundle).
+If you don't have bower installed, you can install it using npm
+``` bash
+$ npm install -g bower
+```
+
 ### 1) Install VespolinaCommerceBundle
 
 Install using composer.phar or composer binary:
@@ -28,6 +34,7 @@ public function registerBundles()
     $bundles = array(
         // ...
         new FOS\RestBundle\FOSRestBundle(),
+        new Sp\BowerBundle\SpBowerBundle(),
         new Vespolina\CommerceBundle\VespolinaCommerceBundle(),
     );
 }
@@ -35,13 +42,19 @@ public function registerBundles()
 
 ### 3) Required configuration:
 
+    # app/config/config.yml
+    sp_bower:
+        bundles:
+            VespolinaCommerceBundle: ~
+
     vespolina_commerce:
         db_driver: mongodb # mongodb or orm
 
 ### 4) Routing options
 
+    # app/config/routing.yml
     vespolina_admin:
-        resource: @VespolinaAdminBundle/Resources/config/routing/admin.xml
+        resource: @VespolinaCommerceBundle/Resources/config/routing/admin.yml
         prefix:   /admin/
     
     vespolina_commerce_checkout:
@@ -58,8 +71,4 @@ public function registerBundles()
     
     vespolina_taxonomy:
         resource: "@VespolinaCommerceBundle/Resources/config/routing/taxonomy.xml"
-        prefix:   /
-    
-    vespolina_store:
-        resource: "@VespolinaStoreBundle/Resources/config/routing/store.xml"
         prefix:   /
