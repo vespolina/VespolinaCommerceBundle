@@ -1,6 +1,6 @@
 <div class="row page-header">
     <div class="col-lg-10">
-        <h1>Product</h1>
+        <h1>Products</h1>
     </div>
     <div class="col-lg-2">
         <a class="btn btn-primary">New Product</a>
@@ -12,25 +12,19 @@
 <div class="row">
 
     <table id="product-listing" ng-table="tableParams" show-filter="true" class="table table-striped table-bordered"">
-    <thead>
-    <tr>
-        <td><!--<input type="checkbox"/>-->&nbsp;</td>
-        <th>Product Name</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="product in products">
-        <td><!--<input type="checkbox"/>-->&nbsp;</td>
-        <td>{{product.title}}</td>
-        <td>
-            <a href="<?= URL::to('products') ?>/{{product.id}}">Edit</a>
-        </td>
-        <td>
-            <a href="#" ng-click="deleteProduct($index, product.id)">Delete</a>
-        </td>
-    </tr>
-    </tbody>
+        <tbody>
+            <tr ng-repeat="product in $data">
+                <td><!--<input type="checkbox"/>-->&nbsp;</td>
+                <td data-title="'Product Name'" filter="{ 'name': 'text' }" sortable="name">
+                    {{product.name}}
+                </td>
+                <td>
+                    <a href="<?= URL::to('products') ?>/{{product.id}}">Edit</a>
+                </td>
+                <td>
+                    <a href="#" ng-click="deleteProduct($index, product.id)">Delete</a>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>

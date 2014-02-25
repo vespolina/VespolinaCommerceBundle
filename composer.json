@@ -12,8 +12,9 @@
         }
     ],
     "require": {
+        "friendsofsymfony/jsrouting-bundle": "*",
         "friendsofsymfony/rest-bundle": "*",
-        "php": ">=5.3.3",
+        "php": ">=5.4.0",
         "sp/bower-bundle": "*",
         "symfony/symfony": ">=2.1",
         "omnipay/omnipay": "1.1.*",

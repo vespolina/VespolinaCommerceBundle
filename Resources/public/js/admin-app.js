@@ -47,7 +47,8 @@ adminApp.config(function($routeProvider) {
             templateUrl: '/bundles/vespolinacommerce/partials/dashboard.html'
         })
         .when('/products', {
-            templateUrl: '/bundles/vespolinacommerce/partials/products.html'
+            templateUrl: '/bundles/vespolinacommerce/partials/products.html',
+            controller: 'ProductPageCtrl'
         })
         .otherwise({
             redirectTo: '/'
