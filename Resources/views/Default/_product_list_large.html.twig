@@ -7,7 +7,7 @@
                 <a href="{{ path('v_product_detail', { 'slug': product.slug }) }}">
                 {{ product.name }}</a>
             </td class="v-product-price">
-            <td> 0 {# {{ product.pricing['unitTotal'] | price_format(store.defaultCurrency) }} #}</td>
+            <td> 0 {# {{ product.pricing['unit'] | price_format(store.defaultCurrency) }} #}</td>
         </tr>
 
     {% else %}
