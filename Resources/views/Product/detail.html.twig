@@ -25,12 +25,13 @@
             </div>
             <div class="v-product-order col-md-5">
                 <div class="v-product-price well">
-                    <p class="v-product-unit-price-total">{{ price( product, 'unitTotal') }}</p>
-
+                    <p class="v-product-unit-price-total">{{ price( product, 'unit') }}</p>
+                    {% if hasPrice(product, 'unitMSRPTotal') %}
                     <p class="v-product-unit-price-msrp-total">{{ price( product,'unitMSRPTotal')}}</p>
-
+                    {% endif %}
+                    {% if hasPrice(product, 'MSRPDiscountRate') %}
                     <p class="v-product-msrp-discount-rate">Save {{ price( product, 'MSRPDiscountRate') }}%</p>
-
+                    {% endif %}
                     <div>
                         <a class="btn btn-primary" href="{{ path('v_cart_add_product', {'productId': product.id}) }}">Add to Cart</a>
                     </div>

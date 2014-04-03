@@ -27,7 +27,8 @@ class CommerceExtension extends \Twig_Extension
     {
         return array(
             'assetManager' => new \Twig_Function_Method($this, 'getAssetManager'),
-            'price' => new \Twig_Function_Method($this, 'getPrice')
+            'hasPrice' => new \Twig_Function_Method($this, 'hasPrice'),
+            'price' => new \Twig_Function_Method($this, 'getPrice'),
         );
     }
 
@@ -40,6 +41,11 @@ class CommerceExtension extends \Twig_Extension
     public function getAssetData($entity, $type)
     {
 
+    }
+
+    public function hasPrice($entity, $type)
+    {
+        return $entity->getPrice($type) !== null ? true : false;
     }
 
     public function getPrice($entity, $type, $currency = '')
