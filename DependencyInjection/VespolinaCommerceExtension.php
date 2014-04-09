@@ -39,6 +39,7 @@ class VespolinaCommerceExtension extends Extension
 
         $configurationFiles = array(
             //Persistence specific configurations
+            sprintf('brand_%s.xml', $dbDriver),
             sprintf('order_%s.xml', $dbDriver),
             sprintf('invoice_%s.xml', $dbDriver),
             sprintf('product_%s.xml', $dbDriver),
@@ -56,7 +57,6 @@ class VespolinaCommerceExtension extends Extension
             'product_options.xml',
             'product_form.xml',
             'order.xml',
-            'order_rest.xml',
             'twig.xml',
             'action.xml'
         );
