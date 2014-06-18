@@ -77,6 +77,13 @@ class CommerceExtension extends \Twig_Extension
             case '%' : $right = ' %'; break;
         }
 
-        return $left . money_format('%i', $amount) . $right;
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        setlocale(LC_ALL, '');
+        $locale = localeconv();
+			return $left . number_format($amount, 2, $locale['decimal_point'], $locale['thousands_sep']) . $right;
+		} else {
+			return $left . money_format('%i', $amount) . $right;
+		}
+
     }
 }
