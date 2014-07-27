@@ -17,11 +17,8 @@ class ProductController extends Controller
     {
         $productManager = $this->container->get('vespolina.product_manager');
 
-        $product = $productManager->findProductBySlug($slug);
-
-        if (null == $product)
-        {
-
+        if (!$product = $productManager->findProductBySlug($slug)) {
+            return $this->render('VespolinaCommerceBundle:Product:notFound.html.twig');
         }
 
         return $this->render('VespolinaCommerceBundle:Product:detail.html.twig', array('product' => $product));

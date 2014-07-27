@@ -8,10 +8,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="v-product-detail">
+    <div class="v-product-detail" v-product>
         <div class="row">
             <div class="col-md-7">
                 <div class="v-product-primary-media-item">
+                    {{ product.name }}
                     <a href="#" class="thumbnail">
                         {% set asset = assetManager().getAsset(product, 'product_main_detail')  %}
                         {% if asset is not null %}
@@ -37,33 +38,14 @@
                     </div>
                 </div>
 
-                <span class ="v-product-description">
+                <span class="v-product-description">
                     {{ product.description }}
                 </span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#">Complimentary Products</a></li>
-                    <li><a href="#">Product Information</a></li>
-                </ul>
-                <ul class="v-complimentary-products list-unstyled">
-                    {% for i in 1..6 %}
-                        <li class="col-md-2">
-                            <a href="#" class="thumbnail">
-                                <img data-src="holder.js/100%x100" />
-                            </a>
-                        </li>
-                    {% endfor %}
-                    {#{% for asset in assetManager().getAssets(product, 'secondary_detail') %}#}
-                    {#<li class="col-md-2">#}
-                    {#<a href="#" class="thumbnail">#}
-                    {#<img src="{{ asset( asset.filename) }}" />#}
-                    {#</a>#}
-                    {#</li>#}
-                    {#{% endfor %}#}
-                </ul>
+                <div v-product-options></div>
             </div>
         </div>
     </div>

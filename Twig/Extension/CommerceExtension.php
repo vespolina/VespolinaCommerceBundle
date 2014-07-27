@@ -55,9 +55,22 @@ class CommerceExtension extends \Twig_Extension
             return;
         }
 
+        if (is_array($value)) {
+            $formatted = [];
+            foreach($value as $val) {
+                $formatted[] = $this->priceFormat($val, $currency);
+            }
+            if (count($formatted) === 2) {
+                return $formatted[0] . ' - ' . $formatted[1];
+            }
+
+            return implode(', ', $formatted);
+        }
+
         return $this->priceFormat(
             $value,
-            $currency);
+            $currency
+        );
     }
 
     public function getName()
@@ -65,8 +78,8 @@ class CommerceExtension extends \Twig_Extension
         return 'commerce_bundle_extension';
     }
 
-    protected function priceFormat($amount, $currency = null) {
-
+    protected function priceFormat($amount, $currency = null)
+    {
         $left = '';
         $right = '';
 
