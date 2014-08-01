@@ -9,7 +9,7 @@
             this.$get = function() {
                 return {
                     getMatchingVariation: function(options) {
-                        var variations = self.product.variations;
+                        var variations = angular.copy(self.product.variations);
                         var variation;
                         for (variation in variations) {
                             if (!variations.hasOwnProperty(variation)) {

@@ -1,0 +1,7 @@
+services:
+
+    vespolina.serializer.product:
+        class: Vespolina\CommerceBundle\JMSSerializer\ProductHandler
+        tags:
+            - { name: jms_serializer.subscribing_handler }
+

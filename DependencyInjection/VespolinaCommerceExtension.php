@@ -11,6 +11,7 @@ namespace Vespolina\CommerceBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -64,6 +65,9 @@ class VespolinaCommerceExtension extends Extension
         foreach ($configurationFiles as $configurationFile) {
             $loader->load($configurationFile);
         }
+
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.yml');
 
         if (isset($config['identifier_set'])) {
             $this->configureIdentifierSet($config['identifier_set'], $container);
