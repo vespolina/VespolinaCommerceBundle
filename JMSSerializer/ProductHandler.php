@@ -29,22 +29,25 @@ class ProductHandler implements SubscribingHandlerInterface
     {
         $formattedPrices = [];
         foreach ($product->getPrices() as $price) {
-            $formattedPrices[$price['type']] = $price['value'];
+            $formattedPrices[$price['type']] = $product->getPrice($price['type']);
         }
+        $root = $visitor->getRoot();
 
         $data = [
             'brands'        => $context->getNavigator()->accept($product->getBrands(), null, $context),
             'createdAt'     => $context->getNavigator()->accept($product->getCreatedAt(), null, $context),
             'id'            => $product->getId(),
             'name'          => $product->getName(),
+            'optionGroups'  => $context->getNavigator()->accept($product->getOptionGroups(), null, $context),
             'prices'        => $formattedPrices,
+            'productId'     => $product->getProductId(),
             'slug'          => $product->getSlug(),
             'taxonomies'    => $context->getNavigator()->accept($product->getTaxonomies(), null, $context),
             'updatedAt'     => $context->getNavigator()->accept($product->getUpdatedAt(), null, $context),
             'variations'    => $context->getNavigator()->accept($product->getVariations(), null, $context),
         ];
 
-        if (null === $visitor->getRoot()) {
+        if (null === $root) {
             $visitor->setRoot($data);
         }
 

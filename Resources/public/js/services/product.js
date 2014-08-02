@@ -15,7 +15,7 @@
                             if (!variations.hasOwnProperty(variation)) {
                                 continue;
                             }
-                            var optionGroups = variations[variation]['option_groups'];
+                            var optionGroups = variations[variation]['optionGroups'];
                             var i = optionGroups.length;
                             while (i--) {
                                 var type = optionGroups[i]['type'];

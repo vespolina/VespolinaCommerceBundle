@@ -3,7 +3,7 @@ angular.module('vespolina').directive('vProductOptions', ['productProvider', fun
             restrict: 'AE',
             link: function (scope, element) {
                 scope.selectElements = {};
-                angular.forEach(scope.product.option_groups, function(optionGroup, key) {
+                angular.forEach(scope.product.optionGroups, function(optionGroup, key) {
                     element.append('<label for=' + optionGroup.type + '" class="control-label">' + optionGroup.type + '</label>');
                     scope.selectElements[optionGroup.type] = null;
                     var selectElement = buildSelect(optionGroup);
