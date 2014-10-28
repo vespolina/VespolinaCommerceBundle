@@ -17,7 +17,7 @@
         "php": ">=5.4.0",
         "sp/bower-bundle": "*",
         "symfony/symfony": ">=2.1",
-        "omnipay/omnipay": "1.1.*",
+        "omnipay/omnipay": "~2.0",
         "vespolina/action": "*",
         "vespolina/commerce": "dev-master",
         "vespolina/taxonomy": "dev-master"
