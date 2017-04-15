@@ -26,6 +26,9 @@
         "phpunit/phpunit": "3.7.*",
         "phpspec/phpspec": "dev-master"
     },
+    "suggest": {
+        "friendsofsymfony/user-bundle": "Create a application user based on a partners"
+    },
     "autoload": {
         "psr-0": { "Vespolina\\CommerceBundle": "" }
     },
