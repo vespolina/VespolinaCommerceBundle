@@ -7,7 +7,7 @@
 * with this source code in the file LICENSE.
 */
 
-namespace Vespolina\CommerceBundle\Controller\Product;
+namespace Vespolina\CommerceBundle\Controller\ProductAdminController;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
